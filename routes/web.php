@@ -27,4 +27,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/users/id{user}', 'UserController@show')->name('users.show');
+    Route::post('/users/avatar/{user}/change', 'AvatarController@store')->name('avatar.store');
 });

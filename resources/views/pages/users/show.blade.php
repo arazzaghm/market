@@ -4,19 +4,15 @@
     <div class="container emp-profile">
         <div class="row">
             <div class="col-md-4">
-                @if($errors->has('avatar'))
-                    <div class="alert alert-danger" role="alert">
-                        {{$errors->get('avatar')[0]}}
-                    </div>
-                @endif
                 <div class="profile-img">
-{{--                    <img src="{{$user->getFirstMedia('avatar') ? $avatar->getUrl() : asset('img/default_avatar.png')}}"--}}
-{{--                         alt="">--}}
-                    @can('edit', $user)
-                        <form action="{{route('avatar.store', ['userId' => $user->id])}}" method="post"
+                    <img
+                        class="mt-1"
+                        src="{{$user->getFirstMedia('avatar') ? $user->getFirstMediaUrl('avatar')  : asset('img/default_avatar.png')}}">
+                    @can('editAvatar', $user)
+                        <form action="{{route('avatar.store', ['user' => $user])}}" method="post"
                               enctype="multipart/form-data">
                             @csrf
-                            <div class="file btn btn-lg btn-primary">
+                            <div class="file btn btn-lg btn-success">
                                 Change Photo
                                 <input type="file" name="avatar" onchange="this.form.submit();">
                             </div>
@@ -27,7 +23,8 @@
             <div class="col-md-6">
                 <div class="profile-head">
                     <h5>
-                        {{$user->name}} | <span class="badge {{$user->isOnline() ? 'badge-success' : 'badge-danger'}}">{{$user->isOnline() ? 'Online' : 'Offline'}}</span>
+                        {{$user->name}} | <span
+                            class="badge {{$user->isOnline() ? 'badge-success' : 'badge-danger'}}">{{$user->isOnline() ? 'Online' : 'Offline'}}</span>
                     </h5>
                     <p class="proile-rating">RANKINGS : <span>8/10</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -88,12 +85,7 @@
                                 <label>Email</label>
                             </div>
                             <div class="col-md-6">
-                                @cannot('edit', $user)
-                                    <p>{{substr_replace($user->email, 'hidden', 0, strlen($user->email))}}</p>
-                                @endcannot
-                                @can('edit', $user)
-                                    <p>{{$user->email}}</p>
-                                @endcan
+                                <p>{{$user->email}}</p>
                             </div>
                         </div>
                     </div>
