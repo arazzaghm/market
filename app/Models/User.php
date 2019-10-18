@@ -6,6 +6,7 @@ use App\Classes\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -56,5 +57,13 @@ class User extends Authenticatable
     public function getRoleNameAsString(): string
     {
         return Role::$names[$this->role];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function isOnline(): bool
+    {
+        return Cache::has('user-online-' . $this->id);
     }
 }
