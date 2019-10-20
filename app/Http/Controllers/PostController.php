@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
+use App\Http\Requests\Post\UpdatePostRequest;
+use App\Http\Requests\Post\CreatePostRequest;
+use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -24,7 +28,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('pages.posts.create');
+        $allCategories = Category::all();
+
+        return view('pages.posts.create', compact('allCategories'));
     }
 
     /**
@@ -33,9 +39,11 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
-        //
+        auth()->user()->posts()->create($request->validated());
+
+        return  redirect()->route('home');
     }
 
     /**
@@ -52,24 +60,28 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @return void
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        $allCategories = Category::all();
+
+        return view('pages.posts.edit', compact('allCategories', 'post'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdatePostRequest $request
+     * @param Post $post
+     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $post->update($request->validated());
+
+        return redirect()->route('home');
     }
 
     /**

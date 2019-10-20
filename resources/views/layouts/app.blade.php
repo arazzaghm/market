@@ -39,7 +39,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <button class="btn btn-sm btn-success"> <i class="fas fa-plus"></i>Add new offer</button>
+                        <a class="btn btn btn-success" href="{{route('posts.create')}}"> <i class="fas fa-plus"></i>Add new offer</a>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
