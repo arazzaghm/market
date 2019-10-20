@@ -49,12 +49,13 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @return void
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        $comments = [];
+        return view('pages.posts.show', compact('post', 'comments'));
     }
 
     /**
