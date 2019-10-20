@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @dump($errors)
     <div class="row">
         <!-- /.col-lg-3 -->
         <div class="col-lg-12">
@@ -21,16 +22,27 @@
                 </div>
                 <div class="card-body">
                     @forelse($comments as $comment)
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore,
-                            similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat
-                            laborum.
-                            Sequi mollitia, necessitatibus quae sint natus.</p>
-                        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                        <p>{{$comment->text}}</p>
+                        <small class="text-muted">Posted by @if($comment->anonymous) Anonymous @else <a
+                                href="{{route('users.show', $comment->user()->first())}}">{{$comment->user()->first()->name}} @endif</a>
+                            on 3/1/17</small>
                     @empty
                         <p>Leave first review!</p>
                     @endforelse
                     <hr>
-                    <a href="#" class="btn btn-success">Leave a Review</a>
+                    <form action="{{route('comments.store', ['post' => $post])}}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="comment">Comment</label>
+                            <textarea class="form-control" id="comment" placeholder="Your comment" name="text"
+                                      required></textarea>
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="anonymous" name="anonymous">
+                            <label class="custom-control-label" for="anonymous">Anonymous comment</label>
+                        </div>
+                        <button type="submit" class="btn btn-success">Leave a Review</button>
+                    </form>
                 </div>
             </div>
             <!-- /.card -->

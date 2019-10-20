@@ -6,6 +6,7 @@ use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Http\Requests\Post\CreatePostRequest;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -54,7 +55,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $comments = [];
+        $comments = Comment::paginate(5);
         return view('pages.posts.show', compact('post', 'comments'));
     }
 
