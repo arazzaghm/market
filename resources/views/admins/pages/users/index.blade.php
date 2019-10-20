@@ -45,17 +45,6 @@
                                                     edit
                                                 </i>
                                             </a>
-                                            @unless($user->id == auth()->id())
-                                                <form action="{{route('admin.users.destroy', $user)}}"
-                                                      method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button class="btn btn-danger waves-effect"
-                                                            data-type="custom-delete"
-                                                            type="submit"><i
-                                                            class="material-icons">delete</i></button>
-                                                </form>
-                                            @endunless
                                         </div>
                                     </div>
                                 </td>

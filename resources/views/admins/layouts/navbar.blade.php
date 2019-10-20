@@ -2,9 +2,9 @@
     <!-- User Info -->
     <div class="user-info">
         <div class="image">
-{{--            <img--}}
-{{--                src="{{auth()->user()->getFirstMedia('avatar') ? auth()->user()->getFirstMediaUrl('avatar') : asset('admins/images/user.png') }}"--}}
-{{--                width="48" height="48" alt="User"/>--}}
+            <img
+                src="{{auth()->user()->getFirstMedia('avatar') ? auth()->user()->getFirstMediaUrl('avatar') : asset('admins/images/user.png') }}"
+                width="48" height="48" alt="User"/>
         </div>
         <div class="info-container">
             <div class="name" data-toggle="dropdown" aria-haspopup="true"
@@ -15,16 +15,9 @@
     <!-- #User Info -->
     <!-- Menu -->
     <div class="menu">
-        <ul class="list">
-            <li class="header">MAIN NAVIGATION</li>
-            <li>
-                <a href="{{ route('admin.users.index') }}">
-                    <i class="material-icons">people</i>
-                    <span>Users</span>
-                </a>
-            </li>
-        </ul>
+        @include('admins.layouts.partials.links')
     </div>
+
     <!-- #Menu -->
     <!-- Footer -->
     <div class="legal">

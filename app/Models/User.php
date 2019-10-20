@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Classes\Role;
+use App\Post;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -67,5 +68,10 @@ class User extends Authenticatable implements HasMedia
     public function isOnline(): bool
     {
         return Cache::has('user-online-' . $this->id);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 }

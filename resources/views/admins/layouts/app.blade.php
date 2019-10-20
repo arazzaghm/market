@@ -75,7 +75,7 @@
     <!-- #END# Left Sidebar -->
 </section>
 
-<section class="content">
+<section class=" content">
     @yield('content')
 </section>
 
