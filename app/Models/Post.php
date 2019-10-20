@@ -31,4 +31,9 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function getCategoryName(): string
+    {
+        return $this->category()->first()->name;
+    }
 }

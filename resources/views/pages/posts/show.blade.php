@@ -9,6 +9,7 @@
                 <div class="card-body">
                     <h3 class="card-title">{{$post->title}}</h3>
                     <h4>${{$post->price}}</h4>
+                    <h4>{{$post->getCategoryName()}}</h4>
                     <p class="card-text">{{$post->description}}</p>
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                     4.0 stars
