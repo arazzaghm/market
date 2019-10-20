@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @dump($errors)
     <div class="row">
         <!-- /.col-lg-3 -->
         <div class="col-lg-12">
@@ -22,13 +21,14 @@
                 </div>
                 <div class="card-body">
                     @forelse($comments as $comment)
-                        <p>{{$comment->text}}</p>
                         <small class="text-muted">Posted by @if($comment->anonymous) Anonymous @else <a
                                 href="{{route('users.show', $comment->user()->first())}}">{{$comment->user()->first()->name}} @endif</a>
-                            on 3/1/17</small>
+                            on {{$comment->formatCreatedAtDate()}}</small>
+                        <p>{{$comment->text}}</p>
                     @empty
                         <p>Leave first review!</p>
                     @endforelse
+                    {{$comments->links()}}
                     <hr>
                     <form action="{{route('comments.store', ['post' => $post])}}" method="POST">
                         @csrf

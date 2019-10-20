@@ -55,7 +55,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $comments = Comment::paginate(5);
+        $comments = Comment::orderByDesc('created_at')->paginate(5);
         return view('pages.posts.show', compact('post', 'comments'));
     }
 
