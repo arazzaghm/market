@@ -52,6 +52,7 @@ class PostController extends Controller
      *
      * @param Post $post
      * @return void
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Post $post)
     {
