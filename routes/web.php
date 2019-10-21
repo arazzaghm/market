@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/users/id{user}', 'UserController@show')->name('users.show');
     Route::post('/users/avatar/{user}/change', 'AvatarController@store')->name('avatar.store');
 
+    Route::get('/posts', 'PostController@index')->name('posts.index');
     Route::get('/posts/create', 'PostController@create')->name('posts.create');
     Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
     Route::get('/posts/edit/{post}', 'PostController@edit')->name('posts.edit');

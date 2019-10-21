@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Formatters\PostDateFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
@@ -95,5 +96,11 @@ class Post extends Model
     public function unhide()
     {
         $this->update(['status' => self::STATUS_VISIBLE]);
+    }
+
+    public function formatCreatedAtDate()
+    {
+        $date = new PostDateFormatter($this->created_at);
+        return $date->format();
     }
 }
