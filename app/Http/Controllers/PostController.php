@@ -46,6 +46,10 @@ class PostController extends Controller
     {
         $post = auth()->user()->posts()->create($request->validated());
 
+        if ($request->hasFile('picture')) {
+            $post->addMedia($request->picture)->toMediaCollection('picture');
+        }
+
         return redirect()->route('posts.show', ['post' => $post]);
     }
 
@@ -89,10 +93,17 @@ class PostController extends Controller
      * @param UpdatePostRequest $request
      * @param Post $post
      * @return void
+     * @throws \Exception
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
         $post->update($request->validated());
+
+        if ($post->hasMedia('picture')) {
+            $post->getFirstMedia('picture')->delete();
+        }
+        
+        $post->addMedia($request->picture)->toMediaCollection('picture');
 
         return redirect()->route('posts.show', [
             'post' => $post

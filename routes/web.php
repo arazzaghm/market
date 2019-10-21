@@ -45,5 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/posts/destroy/{post}', 'PostController@destroy')->name('posts.destroy');
     Route::post('/posts/hide/{post}', 'PostController@hide')->name('posts.hide');
 
+    Route::post('/posts/{post}/picture/destroy', 'PostPictureController@destroy')->name('post-pictures.destroy');
+
     Route::post('/comment/store/{post}', 'CommentController@store')->name('comments.store');
 });

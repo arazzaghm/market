@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    @dump($errors)
     <h2>Edit post</h2>
-    <form action="{{route('posts.update', ['post' => $post])}}" method="POST">
+    <form action="{{route('posts.update', ['post' => $post])}}" method="POST" enctype="multipart/form-data">
         @method('PATCH')
         @include('pages.posts.partials.form')
         <button type="submit" class="btn btn-primary">Save</button>

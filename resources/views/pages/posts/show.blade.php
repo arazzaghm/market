@@ -21,11 +21,17 @@
                             @method('DELETE')
                             <button class="dropdown-item">Delete</button>
                         </form>
+                        @if($post->getFirstMedia('picture'))
+                            <form action="{{route('post-pictures.destroy', ['post' => $post])}}" method="POST">
+                                @csrf
+                                <button class="dropdown-item">Delete picture</button>
+                            </form>
+                        @endif
                     </div>
                 </div>
             @endcan
             <div class="card mt-4">
-                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+                <img class="card-img-top img-fluid" src="{{$post->getPictureUrl()}}" alt="">
                 <div class="card-body">
                     <h3 class="card-title">{{$post->title}}</h3>
                     <h4>${{$post->price}}</h4>

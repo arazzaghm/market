@@ -5,12 +5,14 @@ namespace App\Models;
 use App\Formatters\PostDateFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
-    use SoftDeletes, HasSlug;
+    use SoftDeletes, HasSlug, HasMediaTrait;
 
     const STATUS_VISIBLE = 1;
     const STATUS_ARCHIVED = 2;
@@ -102,5 +104,10 @@ class Post extends Model
     {
         $date = new PostDateFormatter($this->created_at);
         return $date->format();
+    }
+
+    public function getPictureUrl()
+    {
+        return $this->getFirstMedia('picture') ? $this->getFirstMediaUrl('picture') : asset('img/default_post_picture.jpg');
     }
 }

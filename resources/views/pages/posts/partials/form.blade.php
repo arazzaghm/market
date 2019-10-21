@@ -28,3 +28,8 @@
         @endforeach
     </select>
 </div>
+
+<div class="custom-file mb-2">
+    <input type="file" class="custom-file-input" id="picture" name="picture">
+    <label class="custom-file-label" for="picture">Choose picture (optional)</label>
+</div>
