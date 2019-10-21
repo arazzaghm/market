@@ -4,6 +4,26 @@
     <div class="row">
         <!-- /.col-lg-3 -->
         <div class="col-lg-12">
+            @can('update', $post)
+                <div class="dropdown">
+                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Actions
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{route('posts.edit', ['post' => $post])}}">Edit</a>
+                        <form action="{{route('posts.hide', ['post' => $post])}}" method="POST">
+                            @csrf
+                            <button class="dropdown-item">{{$post->isHidden() ? 'Make visible' : 'Hide'}}</button>
+                        </form>
+                        <form action="{{route('posts.destroy', ['post' => $post])}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="dropdown-item">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            @endcan
             <div class="card mt-4">
                 <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
                 <div class="card-body">
@@ -11,6 +31,7 @@
                     <h4>${{$post->price}}</h4>
                     <h4>{{$post->getCategoryName()}}</h4>
                     <p class="card-text">{{$post->description}}</p>
+                    <p><i class="fa fa-eye"></i> {{$post->viewed_times}}</p>
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                     4.0 stars
                 </div>

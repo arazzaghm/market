@@ -9,6 +9,8 @@ class UserController extends Controller
 {
     public function show(User $user)
     {
-        return view('pages.users.show', compact('user'));
+        $countedPosts = $user->posts()->count();
+
+        return view('pages.users.show', compact('user', 'countedPosts'));
     }
 }

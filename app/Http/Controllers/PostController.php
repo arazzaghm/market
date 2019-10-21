@@ -37,14 +37,14 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreatePostRequest $request)
     {
-        auth()->user()->posts()->create($request->validated());
+        $post = auth()->user()->posts()->create($request->validated());
 
-        return  redirect()->route('home');
+        return redirect()->route('posts.show', ['post' => $post]);
     }
 
     /**
@@ -55,7 +55,11 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $comments = Comment::orderByDesc('created_at')->paginate(5);
+        $this->authorize('view', $post);
+
+        $post->increment('viewed_times');
+
+        $comments = $post->comments()->orderByDesc('created_at')->paginate(5);
 
         return view('pages.posts.show', compact('post', 'comments'));
     }
@@ -65,9 +69,12 @@ class PostController extends Controller
      *
      * @param Post $post
      * @return void
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
+
         $allCategories = Category::all();
 
         return view('pages.posts.edit', compact('allCategories', 'post'));
@@ -84,17 +91,40 @@ class PostController extends Controller
     {
         $post->update($request->validated());
 
-        return redirect()->route('home');
+        return redirect()->route('posts.show', [
+            'post' => $post
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @return void
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $this->authorize('edit', $post);
+
+        $post->delete();
+
+        return redirect()->route('users.show', [
+            'user' => auth()->user()
+        ]);
+    }
+
+    /**
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function hide(Post $post)
+    {
+        $this->authorize('update', $post);
+
+        $post->isHidden() ? $post->unhide() : $post->hide();
+
+        return back();
     }
 }

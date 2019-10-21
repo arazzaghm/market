@@ -41,6 +41,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/posts/edit/{post}', 'PostController@edit')->name('posts.edit');
     Route::post('/posts/store', 'PostController@store')->name('posts.store');
     Route::patch('/posts/update/{post}', 'PostController@update')->name('posts.update');
+    Route::delete('/posts/destroy/{post}', 'PostController@destroy')->name('posts.destroy');
+    Route::post('/posts/hide/{post}', 'PostController@hide')->name('posts.hide');
 
     Route::post('/comment/store/{post}', 'CommentController@store')->name('comments.store');
 });
