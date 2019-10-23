@@ -19,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(12);
+        $posts = Post::where('status', '!=', Post::STATUS_HIDDEN)->paginate(12);
 
         return view('pages.posts.index', compact('posts'));
     }
@@ -102,7 +102,7 @@ class PostController extends Controller
         if ($post->hasMedia('picture')) {
             $post->getFirstMedia('picture')->delete();
         }
-        
+
         $post->addMedia($request->picture)->toMediaCollection('picture');
 
         return redirect()->route('posts.show', [

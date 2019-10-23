@@ -18,6 +18,12 @@ class Post extends Model implements HasMedia
     const STATUS_ARCHIVED = 2;
     const STATUS_HIDDEN = 3;
 
+    protected $statuses = [
+        self::STATUS_VISIBLE => 'Visible',
+        self::STATUS_ARCHIVED => 'Archived',
+        self::STATUS_HIDDEN => 'Hidden',
+    ];
+
     protected $fillable = [
         'title',
         'description',
@@ -33,7 +39,7 @@ class Post extends Model implements HasMedia
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
@@ -106,8 +112,15 @@ class Post extends Model implements HasMedia
         return $date->format();
     }
 
-    public function getPictureUrl()
+    public function getPictureUrl(): string
     {
-        return $this->getFirstMedia('picture') ? $this->getFirstMediaUrl('picture') : asset('img/default_post_picture.jpg');
+        return $this->getFirstMedia('picture')
+            ? $this->getFirstMediaUrl('picture')
+            : asset('img/default_post_picture.jpg');
+    }
+
+    public function getStatusAsString(): string
+    {
+        return $this->statuses[$this->status];
     }
 }

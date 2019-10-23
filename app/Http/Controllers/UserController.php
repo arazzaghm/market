@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,18 @@ class UserController extends Controller
     {
         $countedPosts = $user->posts()->count();
 
-        return view('pages.users.show', compact('user', 'countedPosts'));
+        $countedArchivedPosts = $user->posts()->where('status', Post::STATUS_ARCHIVED)->count();
+
+        $countedHiddenPosts = $user->posts()->where('status', Post::STATUS_HIDDEN)->count();
+
+        $posts = $user->posts()->with('Category')->paginate(12);
+
+        return view('pages.users.show', compact(
+            'user',
+            'countedPosts',
+            'posts',
+            'countedArchivedPosts',
+            'countedHiddenPosts'
+        ));
     }
 }
