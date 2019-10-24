@@ -38,6 +38,14 @@
                     <h4>{{$post->getCategoryName()}}</h4>
                     <p class="card-text">{{$post->description}}</p>
                     <p><i class="fa fa-eye"></i> {{$post->viewed_times}}</p>
+                    @auth
+                        <form action="{{route('bookmarks.store', ['post' => $post])}}" method="POST">
+                            @csrf
+                            <button class="btn btn-info">
+                                <i class="fa {{$post->isInBookmarks() ? 'fa-bookmark' : 'fa-bookmark-o'}}"></i>
+                            </button>
+                        </form>
+                    @endauth
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                     4.0 stars
                 </div>

@@ -78,4 +78,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
 }

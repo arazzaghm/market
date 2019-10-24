@@ -65,6 +65,10 @@
                                     My profile
                                 </a>
 
+                                <a href="{{route('bookmarks.index')}}" class="dropdown-item">
+                                    My bookmarks
+                                </a>
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -45,6 +45,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/posts/destroy/{post}', 'PostController@destroy')->name('posts.destroy');
     Route::post('/posts/hide/{post}', 'PostController@hide')->name('posts.hide');
 
+    Route::get('/bookmarks', 'BookmarkController@index')->name('bookmarks.index');
+
+    Route::post('/post/{post}/bookmark/store', 'BookmarkController@store')->name('bookmarks.store');
+    Route::delete('/post/{post}/bookmark/destroy', 'BookmarkController@destroy')->name('bookmarks.destroy');
+
     Route::post('/posts/{post}/picture/destroy', 'PostPictureController@destroy')->name('post-pictures.destroy');
 
     Route::post('/comment/store/{post}', 'CommentController@store')->name('comments.store');

@@ -123,4 +123,18 @@ class Post extends Model implements HasMedia
     {
         return $this->statuses[$this->status];
     }
+
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
+    public function isInBookmarks(): bool
+    {
+        return $this
+            ->bookmarks()
+            ->where('post_id', $this->id)
+            ->where('user_id', auth()->id())
+            ->exists();
+    }
 }
