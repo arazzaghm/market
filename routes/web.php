@@ -20,6 +20,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::get('/', 'IndexController@index')->name('home');
     Route::get('/users', 'UserController@index')->name('users.index');
     Route::get('/users/edit/{user}', 'UserController@edit')->name('users.edit');
+    Route::post('/users/ban/{user}', 'UserController@ban')->name('users.ban');
 
     Route::get('/posts', 'PostController@index')->name('posts.index');
 

@@ -59,4 +59,11 @@ class UserController extends Controller
 
         return back();
     }
+
+    public function ban(User $user)
+    {
+        $user->isNotBanned() ? $user->ban() : $user->unban();
+
+        return back();
+    }
 }

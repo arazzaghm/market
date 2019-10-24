@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Classes\Role;
+use App\Formatters\UserNameFormatter;
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use Cog\Laravel\Ban\Traits\Bannable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,9 +13,9 @@ use Illuminate\Support\Facades\Cache;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class User extends Authenticatable implements HasMedia
+class User extends Authenticatable implements HasMedia, BannableContract
 {
-    use Notifiable, HasMediaTrait;
+    use Notifiable, HasMediaTrait, Bannable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +23,7 @@ class User extends Authenticatable implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role',
+        'name', 'email', 'password', 'role', 'banned_at',
     ];
 
     /**
@@ -62,7 +65,7 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function isOnline(): bool
     {
@@ -82,5 +85,14 @@ class User extends Authenticatable implements HasMedia
     public function bookmarks()
     {
         return $this->hasMany(Bookmark::class);
+    }
+
+    public function getFormattedFulName()
+    {
+       $this->isBanned() ?  $prefix = 'Banned' : $prefix = null;
+
+        $name = new UserNameFormatter($this->name, $prefix);
+
+        return $name->format();
     }
 }

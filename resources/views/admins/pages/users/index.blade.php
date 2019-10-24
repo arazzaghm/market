@@ -28,7 +28,7 @@
                             <tr class="{{$user->role == \App\Classes\Role::ADMIN ? 'text-danger font-bold' : ($user->role == \App\Classes\Role::MODERATOR ? 'text-success font-bold' : '')}} ">
                                 <th scope="row">{{ $user->id }}</th>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->getFormattedFulName() }}</td>
                                 <td>{{ $user->created_at->format('d-m-Y') }}</td>
                                 <td>{{ $user->getRoleNameAsString() }}</td>
                                 <td>
@@ -38,14 +38,18 @@
                                                 aria-expanded="false">
                                             Actions
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="btn btn-warning waves-effect"
-                                               href="{{route('admin.users.edit', $user)}}">
-                                                <i class="material-icons">
-                                                    edit
-                                                </i>
-                                            </a>
-                                        </div>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            @can('beBanned', $user)
+                                                <li>
+                                                    <form action="{{route('admin.users.ban', ['user' => $user])}}" method="POST">
+                                                        @csrf
+                                                        <button class="btn btn-block btn-link">
+                                                            {{$user->isBanned() ? 'Unban' : 'Ban'}}
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            @endcan
+                                        </ul>
                                     </div>
                                 </td>
                             </tr>
