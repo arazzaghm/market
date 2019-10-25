@@ -106,14 +106,15 @@ class PostController extends Controller
     {
         $post->update($request->validated());
 
-        if ($post->hasMedia('picture')) {
+        if ($post->hasMedia('picture') && $request->hasFile('Picture')) {
             $post->getFirstMedia('picture')->delete();
+        } elseif ($request->hasFile('picture')) {
+            $post->addMedia($request->picture)->toMediaCollection('picture');
         }
 
-        $post->addMedia($request->picture)->toMediaCollection('picture');
-
         return redirect()->route('posts.show', [
-            'post' => $post
+            'post' => $post,
+            'category' => $post->category
         ]);
     }
 
