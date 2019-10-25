@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Formatters\PostDateFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\Sluggable\HasSlug;
@@ -136,5 +137,15 @@ class Post extends Model implements HasMedia
             ->where('post_id', $this->id)
             ->where('user_id', auth()->id())
             ->exists();
+    }
+
+    public function addToBookmarks()
+    {
+        Auth::user()->bookmarks()->create(['post_id' => $this->id]);
+    }
+
+    public function removeFromBookmarks()
+    {
+        $this->bookmarks()->where('user_id', Auth::id())->delete();
     }
 }

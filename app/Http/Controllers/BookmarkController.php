@@ -12,15 +12,16 @@ class BookmarkController extends Controller
     {
         $bookmarks = Auth::user()->bookmarks()->with('Post')->paginate(10);
 
+
         return view('pages.bookmarks.index', compact('bookmarks'));
     }
 
     public function store(Post $post)
     {
         if ($post->isInBookmarks()) {
-            $post->bookmarks()->where('user_id', Auth::id())->delete();
+            $post->removeFromBookmarks();
         } else {
-            Auth::user()->bookmarks()->create(['post_id' => $post->id]);
+            $post->addToBookmarks();
         }
         return back();
     }

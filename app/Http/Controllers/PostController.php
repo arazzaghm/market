@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -50,22 +51,27 @@ class PostController extends Controller
             $post->addMedia($request->picture)->toMediaCollection('picture');
         }
 
-        return redirect()->route('posts.show', ['post' => $post]);
+        return redirect()->route('posts.show', [
+            'post' => $post,
+            'category' => $post->category
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
+     * @param Category $category
      * @param Post $post
      * @return void
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Category $category, Post $post)
     {
-//        abort_if();
         $this->authorize('view', $post);
 
-        $post->increment('viewed_times');
+        if (Auth::id() != $post->user_id) {
+            $post->increment('viewed_times');
+        }
 
         $comments = $post->comments()->orderByDesc('created_at')->paginate(5);
 
