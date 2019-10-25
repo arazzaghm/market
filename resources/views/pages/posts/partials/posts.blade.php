@@ -3,7 +3,10 @@
         @can('view', $post)
             <div class="col-6 mb-2">
                 <div class="card">
-                    <a href="{{route('posts.show', ['post'=> $post])}}">
+                    <a href="{{route('posts.show', [
+                    'category' => $post->category,
+                    'post'=> $post
+                    ])}}">
                         <img src="{{$post->getPictureUrl()}}" class="card-img-top" alt="{{$post->title}}">
                     </a>
                     <div class="card-body">

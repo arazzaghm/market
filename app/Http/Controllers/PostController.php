@@ -19,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('status', '!=', Post::STATUS_HIDDEN)->paginate(12);
+        $posts = Post::where('status', '!=', Post::STATUS_HIDDEN)->with('Category')->paginate(12);
 
         return view('pages.posts.index', compact('posts'));
     }
@@ -60,8 +60,9 @@ class PostController extends Controller
      * @return void
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Post $post)
+    public function show(Category $category, Post $post)
     {
+//        abort_if();
         $this->authorize('view', $post);
 
         $post->increment('viewed_times');

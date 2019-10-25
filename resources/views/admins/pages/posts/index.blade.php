@@ -30,7 +30,7 @@
                         @foreach($posts as $post)
                             <tr>
                                 <th scope="row">{{ $post->id }}</th>
-                                <td>{{$post->title}}</td>
+                                <td><a href="{{route('posts.show', ['post' => $post])}}">{{$post->title}}</a></td>
                                 <td>{{$post->viewed_times}}</td>
                                 <td>Category</td>
                                 <td>{{$post->price}}</td>

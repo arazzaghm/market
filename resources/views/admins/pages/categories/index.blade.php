@@ -24,22 +24,25 @@
                         </thead>
                         <tbody>
                         @foreach($categories as $category)
-                            <td>{{$category->id}}</td>
-                            <td>{{$category->name}}</td>
-                            <td>{{$category->icon_name}}</td>
-                            <td>
-                                <a class="btn btn-warning"
-                                   href="{{route('admin.categories.edit', ['category' => $category])}}">
-                                    Edit
-                                </a>
-                            </td>
-                            <td>
-                                <form action="{{route('admin.categories.destroy', ['category' => $category])}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger">Delete</button>
-                                </form>
-                            </td>
+                            <tr>
+                                <td>{{$category->id}}</td>
+                                <td>{{$category->name}}</td>
+                                <td>{{$category->getFaIconName()}}</td>
+                                <td>
+                                    <a class="btn btn-warning"
+                                       href="{{route('admin.categories.edit', ['category' => $category])}}">
+                                        Edit
+                                    </a>
+                                </td>
+                                <td>
+                                    <form action="{{route('admin.categories.destroy', ['category' => $category])}}"
+                                          method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>
