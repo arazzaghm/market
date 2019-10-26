@@ -8,6 +8,8 @@ class ReportType extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['name', 'model_type'];
+
     public function reports()
     {
         return $this->hasMany(Report::class);
