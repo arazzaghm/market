@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Formatters\DateFormatter;
+use App\Traits\ReportableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ use Spatie\Sluggable\SlugOptions;
 
 class Post extends Model implements HasMedia
 {
-    use SoftDeletes, HasSlug, HasMediaTrait;
+    use SoftDeletes, HasSlug, HasMediaTrait, ReportableTrait;
 
     const STATUS_VISIBLE = 1;
     const STATUS_ARCHIVED = 2;
@@ -153,10 +154,5 @@ class Post extends Model implements HasMedia
     public function reports()
     {
         return $this->hasMany(Report::class, 'model_id');
-    }
-
-    public function reportTypes()
-    {
-        return ReportType::where('model_type', self::class);
     }
 }

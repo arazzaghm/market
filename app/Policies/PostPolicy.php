@@ -21,7 +21,7 @@ class PostPolicy
 
     public function view(?User $user, Post $post)
     {
-        return !Auth::check() && $post->isViewable() || $user->isAdmin() || $post->isViewable() || $post->authIsOwner()
+        return !Auth::check() && $post->isViewable() || Auth::check() && $user->isAdmin() || $post->isViewable() || $post->authIsOwner()
             ? Response::allow()
             : Response::deny('You can not see this post.');
     }

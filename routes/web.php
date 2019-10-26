@@ -19,6 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/posts', 'PostController@index')->name('posts.index');
 Route::get('/posts/{category}/{post}', 'PostController@show')->name('posts.show');
 
+Route::get('/users/id{user}', 'UserController@show')->name('users.show');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin'], 'namespace' => 'Admin'], function () {
     Route::get('/', 'IndexController@index')->name('home');
@@ -51,7 +52,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
 });
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/users/id{user}', 'UserController@show')->name('users.show');
     Route::post('/users/avatar/{user}/change', 'AvatarController@store')->name('avatar.store');
 
     Route::get('/posts/edit/{post}', 'PostController@edit')->name('posts.edit');
