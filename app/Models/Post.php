@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Formatters\PostDateFormatter;
+use App\Formatters\DateFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
@@ -109,7 +109,8 @@ class Post extends Model implements HasMedia
 
     public function formatCreatedAtDate()
     {
-        $date = new PostDateFormatter($this->created_at);
+        $date = new DateFormatter($this->created_at);
+
         return $date->format();
     }
 
@@ -152,5 +153,10 @@ class Post extends Model implements HasMedia
     public function reports()
     {
         return $this->hasMany(Report::class, 'model_id');
+    }
+
+    public function reportTypes()
+    {
+        return ReportType::where('model_type', self::class);
     }
 }

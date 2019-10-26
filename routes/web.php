@@ -41,6 +41,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::get('/report-types/{reportType}', 'ReportTypeController@edit')->name('report-types.edit');
     Route::patch('/report-types/{reportType}', 'ReportTypeController@update')->name('report-types.update');
     Route::delete('/report-types/delete/{reportType}', 'ReportTypeController@destroy')->name('report-types.destroy');
+
+    Route::get('/reports', 'ReportController@index')->name('reports.index');
+    Route::get('/reports/create', 'ReportController@create')->name('reports.create');
+    Route::get('/reports/show/{report}', 'ReportController@show')->name('reports.show');
+    Route::post('/reports/store', 'ReportController@store')->name('reports.store');
+    Route::patch('/reports/update/{report}', 'ReportController@update')->name('reports.update');
+    Route::delete('/reports/delete/{report}', 'ReportController@destroy')->name('reports.destroy');
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -62,4 +69,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/posts/{post}/picture/destroy', 'PostPictureController@destroy')->name('post-pictures.destroy');
 
     Route::post('/comment/store/{post}', 'CommentController@store')->name('comments.store');
+
+    Route::post('/reports/store/{model}', 'ReportController@store')->name('reports.store');
 });

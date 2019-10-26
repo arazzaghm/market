@@ -4,7 +4,7 @@ namespace App\Formatters;
 
 use Carbon\Carbon;
 
-class PostDateFormatter implements Formatter
+class DateFormatter implements Formatter
 {
     private $date;
 

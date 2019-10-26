@@ -20,4 +20,18 @@
             <span>Categories</span>
         </a>
     </li>
+
+    <li>
+        <a href="{{ route('admin.reports.index') }}">
+            <i class="material-icons">report</i>
+            <span>Reports</span><span class="badge bg-red white-text">{{\App\Models\Report::countNotViewed()}} Unread</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('admin.report-types.index') }}">
+            <i class="material-icons">report</i>
+            <span>Report types</span>
+        </a>
+    </li>
 </ul>

@@ -73,9 +73,11 @@ class PostController extends Controller
             $post->increment('viewed_times');
         }
 
+        $reportTypes = $post->reportTypes()->get();
+
         $comments = $post->comments()->orderByDesc('created_at')->paginate(5);
 
-        return view('pages.posts.show', compact('post', 'comments'));
+        return view('pages.posts.show', compact('post', 'comments', 'reportTypes'));
     }
 
     /**
