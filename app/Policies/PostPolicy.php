@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class PostPolicy
 {
@@ -18,10 +19,10 @@ class PostPolicy
             : Response::deny('You do not own this post.');
     }
 
-    public function view(User $user, Post $post)
+    public function view(?User $user, Post $post)
     {
-        return $user->isAdmin() || $post->isViewable() || $post->authIsOwner()
+        return !Auth::check() && $post->isViewable() || $user->isAdmin() || $post->isViewable() || $post->authIsOwner()
             ? Response::allow()
-            : Response::deny('You can not see    this post.');
+            : Response::deny('You can not see this post.');
     }
 }

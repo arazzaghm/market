@@ -16,6 +16,10 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/posts', 'PostController@index')->name('posts.index');
+Route::get('/posts/{category}/{post}', 'PostController@show')->name('posts.show');
+
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin'], 'namespace' => 'Admin'], function () {
     Route::get('/', 'IndexController@index')->name('home');
     Route::get('/users', 'UserController@index')->name('users.index');
@@ -37,10 +41,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/users/id{user}', 'UserController@show')->name('users.show');
     Route::post('/users/avatar/{user}/change', 'AvatarController@store')->name('avatar.store');
 
-    Route::get('/posts', 'PostController@index')->name('posts.index');
     Route::get('/posts/edit/{post}', 'PostController@edit')->name('posts.edit');
     Route::get('/posts/create', 'PostController@create')->name('posts.create');
-    Route::get('/posts/{category}/{post}', 'PostController@show')->name('posts.show');
     Route::post('/posts/store', 'PostController@store')->name('posts.store');
     Route::patch('/posts/update/{post}', 'PostController@update')->name('posts.update');
     Route::delete('/posts/destroy/{post}', 'PostController@destroy')->name('posts.destroy');

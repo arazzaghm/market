@@ -35,7 +35,8 @@
                 <div class="card-body">
                     <h3 class="card-title">{{$post->title}}</h3>
                     <h4>${{$post->price}}</h4>
-                    <h4>Category: <span class="fa {{$post->category->getFaIconName()}}"></span>  {{$post->getCategoryName()}}</h4>
+                    <h4>Category: <span
+                            class="fa {{$post->category->getFaIconName()}}"></span> {{$post->getCategoryName()}}</h4>
                     <p class="card-text">{{$post->description}}</p>
                     <p><i class="fa fa-eye"></i> {{$post->viewed_times}}</p>
                     @auth
@@ -66,18 +67,25 @@
                     @endforelse
                     {{$comments->links()}}
                     <hr>
-                    <form action="{{route('comments.store', ['post' => $post])}}" method="POST">
-                        @csrf
+                    <form @auth action="{{route('comments.store', ['post' => $post])}}" method="POST" @endauth>
+                        @auth
+                            @csrf
+                        @endauth
                         <div class="form-group">
                             <label for="comment">Comment</label>
-                            <textarea class="form-control" id="comment" placeholder="Your comment" name="text"
-                                      required></textarea>
+                            <textarea class="form-control" id="comment" placeholder="Your comment" @auth name="text"
+                                      @endauth
+                                      required @guest {{'disabled'}} @endguest></textarea>
                         </div>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="anonymous" name="anonymous">
-                            <label class="custom-control-label" for="anonymous">Anonymous comment</label>
+                            <input type="checkbox" class="custom-control-input" id="anonymous"
+                                   @auth name="anonymous" @endauth>
+                            @auth
+                                <label class="custom-control-label" for="anonymous">Anonymous comment</label>
+                            @endauth
                         </div>
-                        <button type="submit" class="btn btn-success">Leave a Review</button>
+                        <button type="submit" class="btn btn-success" @guest {{'disabled'}} @endguest>Leave a Review
+                        </button>
                     </form>
                 </div>
             </div>
