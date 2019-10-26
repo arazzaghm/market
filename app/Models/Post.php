@@ -148,4 +148,9 @@ class Post extends Model implements HasMedia
     {
         $this->bookmarks()->where('user_id', Auth::id())->delete();
     }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'model_id');
+    }
 }

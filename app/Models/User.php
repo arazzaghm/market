@@ -95,4 +95,14 @@ class User extends Authenticatable implements HasMedia, BannableContract
 
         return $name->format();
     }
+
+    public function createdReports()
+    {
+        return $this->hasMany(Report::class, 'user_id');
+    }
+
+    public function receivedReports()
+    {
+        return $this->hasMany(Report::class, 'model_id');
+    }
 }

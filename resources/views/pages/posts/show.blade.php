@@ -36,16 +36,25 @@
                     <h3 class="card-title">{{$post->title}}</h3>
                     <h4>${{$post->price}}</h4>
                     <h4>Category: <span
-                            class="fa {{$post->category->getFaIconName()}}"></span> {{$post->getCategoryName()}}</h4>
+                            class="fa {{$post->category->getFaIconName()}}"></span> {{$post->category->name}}</h4>
                     <p class="card-text">{{$post->description}}</p>
                     <p><i class="fa fa-eye"></i> {{$post->viewed_times}}</p>
                     @auth
-                        <form action="{{route('bookmarks.store', ['post' => $post])}}" method="POST">
-                            @csrf
-                            <button class="btn btn-info">
-                                <i class="fa {{$post->isInBookmarks() ? 'fa-bookmark' : 'fa-bookmark-o'}}"></i>
-                            </button>
-                        </form>
+                        <div class="row">
+                            <div class="col-0 ml-2">
+                                <form action="{{route('bookmarks.store', ['post' => $post])}}" method="POST">
+                                    @csrf
+                                    <a class="btn {{$post->isInBookmarks() ? 'btn-dark' : 'btn-outline-dark'}}">
+                                        <i class="fa fa-bookmark"></i>
+                                    </a>
+                                </form>
+                            </div>
+                            <div class="col-0 ml-1">
+                                <a data-toggle="modal" data-target="#reportModal" class="btn btn-outline-dark">
+                                    <i class="fa fa-flag"></i>
+                                </a>
+                            </div>
+                        </div>
                     @endauth
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                     4.0 stars
@@ -93,4 +102,42 @@
         </div>
         <!-- /.col-lg-9 -->
     </div>
+
+    @auth
+        <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Report this post</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" placeholder="Title" id="title" name="title">
+                                <label for="report_type_id">Reason</label>
+                                <select name="report_type_id" id="report_type_id" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">1</option>
+                                </select>
+                                <label for="description">Description</label>
+                                <textarea name="description" id="description" cols="30" rows="3"
+                                          class="form-control"></textarea>
+                            </div>
+                            <input type="hidden" name="model" value="{{\App\Models\Post::class}}">
+                            <input type="hidden" name="model_id" value="{{$post->id}}">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endauth
 @endsection
