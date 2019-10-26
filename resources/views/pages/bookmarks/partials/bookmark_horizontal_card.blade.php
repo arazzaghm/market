@@ -23,8 +23,9 @@
                                 <i class="fa fa-bookmark"></i>
                             </button>
                         </form>
-                        <a class="btn btn-primary mt-2" href="{{route('bookmarks.store', [
+                        <a class="btn btn-primary mt-2" href="{{route('posts.show', [
                             'post' => $bookmark->post,
+                            'category' => $bookmark->post->category
                         ])}}">
                             Show
                         </a>

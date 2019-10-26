@@ -46,7 +46,9 @@
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">
+                                {{ __('Login') }}
+                            </button>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
@@ -93,5 +95,8 @@
     </div>
 </div>
 </body>
+@guest
+    @include('layouts.modals.login_modal')
+@endguest
 <script src="https://use.fontawesome.com/a96cf2e01d.js"></script>
 </html>
