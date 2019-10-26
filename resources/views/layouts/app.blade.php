@@ -52,7 +52,9 @@
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <button type="button" class="btn nav-link" data-toggle="modal" data-target="#registerModal">
+                                    {{ __('Register') }}
+                                </button>
                             </li>
                         @endif
                     @else
@@ -97,6 +99,7 @@
 </body>
 @guest
     @include('layouts.modals.login_modal')
+    @include('layouts.modals.register_modal')
 @endguest
 <script src="https://use.fontawesome.com/a96cf2e01d.js"></script>
 </html>
