@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Formatters\CommentDateFormatter;
+use App\Formatters\DateFormatter;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
@@ -27,7 +27,7 @@ class Comment extends Model
 
     public function formatCreatedAtDate()
     {
-        $date = new CommentDateFormatter($this->created_at);
+        $date = new DateFormatter($this->created_at);
         return $date->format();
     }
 
