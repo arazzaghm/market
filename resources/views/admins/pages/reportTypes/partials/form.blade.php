@@ -11,13 +11,13 @@
 
 <div class="col-sm-6">
     <div class="form-group">
-        <div class="form-line">
-            <label for="modelType">Model type</label>
-            <select name="model_type" id="modelType">
-                @foreach($models as $key => $model)
-                    <option value="{{$model}}">{{$key}}</option>
-                @endforeach
-            </select>
-        </div>
+        <label for="modelType">Model type</label>
+        <select name="model_type" id="modelType">
+            @foreach($models as $key => $model)
+                <option value="{{$model}}" {{isset($reportType) && $reportType->model_type == $model ? 'selected' : ''}}>
+                    {{$key}}
+                </option>
+            @endforeach
+        </select>
     </div>
 </div>
