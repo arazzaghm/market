@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Formatters\DateFormatter;
+use App\Traits\FormatModelTypeTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
+    use FormatModelTypeTrait;
+
     protected $fillable = [
         'model_type',
         'model_id',

@@ -30,7 +30,7 @@
                             <tr class="{{$report->isNotViewed() ? 'text-danger' : ''}}">
                                 <td>{{$report->id}}</td>
                                 <td>{{$report->title}}</td>
-                                <td>{{$report->model_type}}</td>
+                                <td>{{$report->getFormattedModelType()}}</td>
                                 <td>{{$report->model()->id}}</td>
                                 <th>{{$report->formatCreatedAtDate()}}</th>
                                 <td>

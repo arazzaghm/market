@@ -28,7 +28,7 @@
                             <tr>
                                 <td>{{$reportType->id}}</td>
                                 <td>{{$reportType->name}}</td>
-                                <td>{{$reportType->model_type}}</td>
+                                <td>{{$reportType->getFormattedModelType()}}</td>
                                 <td>
                                     <a class="btn btn-warning"
                                        href="{{route('admin.report-types.edit', ['reportType' => $reportType])}}">
