@@ -71,4 +71,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/comment/store/{post}', 'CommentController@store')->name('comments.store');
 
     Route::post('/reports/store/{model}', 'ReportController@store')->name('reports.store');
+
+    Route::get('/settings','SettingsController@index')->name('settings.index');
+    Route::get('/settings/statistics','SettingsController@statistics')->name('settings.statistics');
 });
