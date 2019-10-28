@@ -74,4 +74,5 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/settings','SettingsController@index')->name('settings.index');
     Route::get('/settings/statistics','SettingsController@statistics')->name('settings.statistics');
+    Route::get('/settings/support','SettingsController@support')->name('settings.support');
 });

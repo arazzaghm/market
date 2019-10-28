@@ -15,4 +15,9 @@ class SettingsController extends Controller
     {
         return view('pages.settings.statistics');
     }
+
+    public function support()
+    {
+        return view('pages.settings.support');
+    }
 }
