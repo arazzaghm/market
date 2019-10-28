@@ -44,9 +44,9 @@
                             <div class="col-0 ml-2">
                                 <form action="{{route('bookmarks.store', ['post' => $post])}}" method="POST">
                                     @csrf
-                                    <a class="btn {{$post->isInBookmarks() ? 'btn-dark' : 'btn-outline-dark'}}">
+                                    <button class="btn {{$post->isInBookmarks() ? 'btn-dark' : 'btn-outline-dark'}}">
                                         <i class="fa fa-bookmark"></i>
-                                    </a>
+                                    </button>
                                 </form>
                             </div>
                             <div class="col-0 ml-1">

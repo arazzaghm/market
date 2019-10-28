@@ -19,8 +19,8 @@
                             'post' => $bookmark->post,
                         ])}}" method="POST">
                             @csrf
-                            <button class="btn btn-outline-light text-dark">
-                                <i class="fa fa-bookmark"></i>
+                            <button class="btn btn-dark text-dark">
+                                <i class="fa fa-bookmark text-white"></i>
                             </button>
                         </form>
                         <a class="btn btn-primary mt-2" href="{{route('posts.show', [
