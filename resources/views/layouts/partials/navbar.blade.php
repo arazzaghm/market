@@ -11,13 +11,25 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-
-            </ul>
 
             <!-- Right Side Of Navbar -->
+
+            <ul class="navbar-nav mr-auto">
+                <form>
+                    <div class="form-group row mt-3">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="search"
+                                   placeholder="Search">
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-success btn-sm">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </ul>
+
             <ul class="navbar-nav ml-auto">
-                <a class="btn btn btn-success  @guest {{'disabled'}} @endguest" href="{{route('posts.create')}}"> <i
+                <a class="btn btn btn-danger  @guest {{'disabled'}} @endguest" href="{{route('posts.create')}}"> <i
                         class="fa fa-plus"></i> Add new
                     offer</a>
                 <!-- Authentication Links -->
@@ -44,25 +56,25 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a href="{{route('users.show', ['user' => Auth::user()])}}" class="dropdown-item">
-                                My profile
+                                <i class="fa fa-user"></i> My profile
                             </a>
 
                             <a href="{{route('bookmarks.index')}}" class="dropdown-item">
-                                My bookmarks
+                                <i class="fa fa-bookmark"></i> My bookmarks
                             </a>
 
                             <a href="{{route('settings.index')}}" class="dropdown-item">
-                                My settings
+                                <i class="fa fa-cog"></i> My settings
                             </a>
 
                             <a href="{{route('questions.index')}}" class="dropdown-item">
-                                Help
+                                <i class="fa fa-question-circle"></i> Help
                             </a>
 
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                <i class="fa fa-sign-out"></i> {{ __('Logout') }}
                             </a>
 
 
