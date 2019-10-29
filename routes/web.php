@@ -19,6 +19,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/posts', 'PostController@index')->name('posts.index');
 Route::get('/posts/{category}/{post}', 'PostController@show')->name('posts.show');
 
+Route::get('/search', 'SearchController@index')->name('search');
+
 Route::get('/users/id{user}', 'UserController@show')->name('users.show');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin'], 'namespace' => 'Admin'], function () {

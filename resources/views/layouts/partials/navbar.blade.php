@@ -12,13 +12,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
 
-            <!-- Right Side Of Navbar -->
+            <!-- Right Side Of Navbar -->k
 
             <ul class="navbar-nav mr-auto">
-                <form>
+                <form action="{{route('search')}}">
                     <div class="form-group row mt-3">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control form-control-sm" id="search"
+                            <input type="text" class="form-control form-control-sm" id="search" name="title"
                                    placeholder="Search">
                         </div>
                         <div class="col-sm-1">
