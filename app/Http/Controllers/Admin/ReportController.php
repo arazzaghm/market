@@ -10,9 +10,11 @@ class ReportController extends Controller
 {
     public function index()
     {
+        $totalReports = Report::count();
+
         $reports = Report::orderByDesc('created_at')->paginate(50);
 
-        return view('admins.pages.reports.index', compact('reports'));
+        return view('admins.pages.reports.index', compact('reports', 'totalReports'));
     }
 
     public function show(Report $report)

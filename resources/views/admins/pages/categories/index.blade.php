@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="header">
                     <h2>Categories</h2>
-                    <h5>Total Categories: {{ App\Models\Category::count()}} </h5>
+                    <h5>Total Categories: {{$totalCategories}} </h5>
                 </div>
 
                 <div class="body table-responsive">

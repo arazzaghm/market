@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="header">
                     <h2>Reports</h2>
-                    <h5>Total Report types: {{ App\Models\Report::count()}} </h5>
+                    <h5>Total reports: {{ $totalReports}} </h5>
                     <a href="{{route('admin.report-types.create')}}" class="btn btn-success">Create</a>
                 </div>
 

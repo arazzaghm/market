@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="header">
                     <h2>Users</h2>
-                    <h5>Total users: {{ App\Models\User::count()}} </h5>
+                    <h5>Total users: {{ $totalUsers }} </h5>
                 </div>
 
                 <div class="body table-responsive">

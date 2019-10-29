@@ -18,9 +18,11 @@ class PostController extends Controller
      */
     public function index()
     {
+        $totalPosts = Post::count();
+
         $posts = Post::orderByDesc('created_at')->paginate(50);
 
-        return view('admins.pages.posts.index', compact('posts'));
+        return view('admins.pages.posts.index', compact('posts', 'totalPosts'));
     }
 
     /**

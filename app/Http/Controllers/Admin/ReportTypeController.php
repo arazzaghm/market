@@ -11,9 +11,11 @@ class ReportTypeController extends Controller
 {
     public function index()
     {
+        $totalReportTypes = ReportType::count();
+
         $reportTypes = ReportType::paginate(50);
 
-        return view('admins.pages.reportTypes.index', compact('reportTypes'));
+        return view('admins.pages.reportTypes.index', compact('reportTypes', 'totalReportTypes'));
     }
 
     public function create()

@@ -16,9 +16,11 @@ class UserController extends Controller
      */
     public function index()
     {
+        $totalUsers = User::count();
+
         $users = User::paginate('50');
 
-        return view('admins.pages.users.index', compact('users'));
+        return view('admins.pages.users.index', compact('users', 'totalUsers'));
     }
 
     /**

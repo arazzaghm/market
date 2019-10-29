@@ -18,6 +18,7 @@ class IndexController extends Controller
     {
         $totalUsers = User::count();
         $todayUsers = User::where('created_at', '>=', Carbon::now()->startOfDay())->count();
+
         return view('admins.index', [
             'totalUsers' => $totalUsers,
             'todayUsers' => $todayUsers
