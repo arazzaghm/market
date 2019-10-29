@@ -49,6 +49,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::post('/reports/store', 'ReportController@store')->name('reports.store');
     Route::patch('/reports/update/{report}', 'ReportController@update')->name('reports.update');
     Route::delete('/reports/delete/{report}', 'ReportController@destroy')->name('reports.destroy');
+
+    Route::get('/questions', 'QuestionController@index')->name('questions.index');
+    Route::get('/questions/{question}', 'QuestionController@show')->name('questions.show');
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -74,5 +77,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/settings','SettingsController@index')->name('settings.index');
     Route::get('/settings/statistics','SettingsController@statistics')->name('settings.statistics');
-    Route::get('/settings/support','SettingsController@support')->name('settings.support');
+
+    Route::get('/my-questions','QuestionController@index')->name('questions.index');
+    Route::post('/questions/store', 'QuestionController@store')->name('questions.store');
+    Route::get('/my-questions/{question}', 'QuestionController@show')->name('questions.show');
 });

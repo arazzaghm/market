@@ -18,6 +18,6 @@ class SettingsController extends Controller
 
     public function support()
     {
-        return view('pages.settings.support');
+
     }
 }

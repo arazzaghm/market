@@ -10,8 +10,8 @@
            class="text-decoration-none {{\Request::route()->getName() == 'settings.statistics' ? 'text-dark' :''}}">
             <li class="list-group-item">My statistics</li>
         </a>
-        <a href="{{route('settings.support')}}"
-           class="text-decoration-none {{\Request::route()->getName() == 'settings.support' ? 'text-dark' :''}}">
+        <a href="{{route('questions.index')}}"
+           class="text-decoration-none {{\Request::route()->getName() == 'questions.index' ? 'text-dark' :''}}">
             <li class="list-group-item">Support <span class="badge badge-danger ">4</span></li>
         </a>
     </ul>
