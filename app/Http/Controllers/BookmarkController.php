@@ -10,7 +10,7 @@ class BookmarkController extends Controller
 {
     public function index()
     {
-        $bookmarks = Auth::user()->bookmarks()->with('Post')->paginate(10);
+        $bookmarks = Auth::user()->bookmarks()->paginate(10);
 
 
         return view('pages.bookmarks.index', compact('bookmarks'));

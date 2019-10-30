@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('status', '!=', Post::STATUS_HIDDEN)->with('Category')->paginate(12);
+        $posts = Post::where('status', '!=', Post::STATUS_HIDDEN)->paginate(12);
 
         return view('pages.posts.index', compact('posts'));
     }
