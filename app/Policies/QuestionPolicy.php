@@ -15,7 +15,7 @@ class QuestionPolicy
     {
         return $question->user_id == $user->id
             ? Response::allow()
-            : Response::deny('404 not found.');
+            : Response::deny('You can`t view this page.', 404);
     }
 
     public function beAnswered(User $user, Question $question)

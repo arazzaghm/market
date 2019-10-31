@@ -23,6 +23,7 @@ Route::get('/search', 'SearchController@index')->name('search');
 
 Route::get('/users/id{user}', 'UserController@show')->name('users.show');
 
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin'], 'namespace' => 'Admin'], function () {
     Route::get('/', 'IndexController@index')->name('home');
     Route::get('/users', 'UserController@index')->name('users.index');
@@ -55,6 +56,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::get('/questions', 'QuestionController@index')->name('questions.index');
     Route::get('/questions/{question}', 'QuestionController@show')->name('questions.show');
     Route::post('/questions/answer/{question}', 'QuestionController@answer')->name('questions.answer');
+
+    Route::get('/popular-questions', 'PopularQuestionController@index')->name('popular-questions.index');
+    Route::get('/popular-questions/create', 'PopularQuestionController@create')->name('popular-questions.create');
+    Route::post('/popular-questions/store', 'PopularQuestionController@store')->name('popular-questions.store');
+    Route::get('/popular-questions/edit/{popularQuestion}', 'PopularQuestionController@edit')->name('popular-questions.edit');
+    Route::patch('/popular-questions/update/{popularQuestion}', 'PopularQuestionController@update')->name('popular-questions.update');
+    Route::delete('/popular-questions/update/{popularQuestion}', 'PopularQuestionController@destroy')->name('popular-questions.destroy');
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -78,10 +86,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/reports/store/{model}', 'ReportController@store')->name('reports.store');
 
-    Route::get('/settings','SettingsController@index')->name('settings.index');
-    Route::get('/settings/statistics','SettingsController@statistics')->name('settings.statistics');
+    Route::get('/settings', 'SettingsController@index')->name('settings.index');
+    Route::get('/settings/statistics', 'SettingsController@statistics')->name('settings.statistics');
 
-    Route::get('/my-questions','QuestionController@index')->name('questions.index');
+    Route::get('/popular-questions', 'PopularQuestionController@index')->name('popular-questions.index');
+
+    Route::get('/my-questions', 'QuestionController@index')->name('questions.index');
     Route::post('/questions/store', 'QuestionController@store')->name('questions.store');
     Route::get('/my-questions/{question}', 'QuestionController@show')->name('questions.show');
 });

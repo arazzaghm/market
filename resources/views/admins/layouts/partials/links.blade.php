@@ -43,4 +43,13 @@
             <span>Users questions</span><span class="badge bg-red white-text">@openedQuestions opened</span>
         </a>
     </li>
+
+    <li>
+        <a href="{{route('admin.popular-questions.index')}}">
+            <i class="material-icons">
+                contact_support
+            </i>
+            <span>Popular questions</span>
+        </a>
+    </li>
 </ul>
