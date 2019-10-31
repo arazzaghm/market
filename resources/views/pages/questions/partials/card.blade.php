@@ -5,7 +5,7 @@
     <div class="card-body">
         <h5 class="card-title">
             {{$question->title}}
-            @if($question->answer->isNotViewed())
+            @if($question->isAnswered() && $question->answer->isNotViewed())
                 <span class="badge badge-primary">New</span>
             @endif
         </h5>
