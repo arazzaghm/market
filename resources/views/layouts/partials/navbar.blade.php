@@ -69,7 +69,7 @@
 
                             <a href="{{route('questions.index')}}" class="dropdown-item">
                                 @if($authHasNewAnswers)
-                                    <span class="badge badge-danger">@countedAuthNewAnswers</span>
+                                    <span class="badge badge-danger">{{$countedAuthNewAnswers}}</span>
                                 @else
                                     <i class="fa fa-question-circle"></i>
                                 @endif

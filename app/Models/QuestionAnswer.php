@@ -21,21 +21,21 @@ class QuestionAnswer extends Model
 
     public static function checkIfAuthHasNewAnswers()
     {
-        return self::where('is_viewed', false)
+        return Auth::check() ? self::where('is_viewed', false)
             ->whereIn(
                 'question_id',
                 Auth::user()->questions()->get('id')
             )
-            ->exists();
+            ->exists() : null;
     }
 
     public static function countAuthNewAnswers()
     {
-        return self::where('is_viewed', false)
+        return Auth::check() ? self::where('is_viewed', false)
             ->whereIn(
                 'question_id',
                 Auth::user()->questions()->get('id')
             )
-            ->count();
+            ->count() : null;
     }
 }
