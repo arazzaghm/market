@@ -16,11 +16,18 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Category|null $category
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(?Category $category)
     {
-        $posts = Post::where('status', '!=', Post::STATUS_HIDDEN)->paginate(12);
+        $query = Post::where('status', '!=', Post::STATUS_HIDDEN);
+
+        if ($category->id !== null) {
+            $query = $query->where('category_id', $category->id);
+        }
+
+        $posts = $query->paginate(12);
 
         return view('pages.posts.index', compact('posts'));
     }

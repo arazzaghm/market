@@ -16,7 +16,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/posts', 'PostController@index')->name('posts.index');
+Route::get('/posts/{category?}', 'PostController@index')->name('posts.index');
 Route::get('/posts/{category}/{post}', 'PostController@show')->name('posts.show');
 
 Route::get('/search', 'SearchController@index')->name('search');
