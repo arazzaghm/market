@@ -48,7 +48,7 @@ class PostController extends Controller
         $post = auth()->user()->posts()->create($request->validated());
 
         if ($request->hasFile('picture')) {
-            $post->addMedia($request->picture)->toMediaCollection('picture');
+            $post->addMedia($request->picture)->withResponsiveImages()->toMediaCollection('picture');
         }
 
         return redirect()->route('posts.show', [
@@ -73,11 +73,13 @@ class PostController extends Controller
             $post->increment('viewed_times');
         }
 
+        $media = $post->getPictureUrl();
+
         $reportTypes = $post->reportTypes()->get();
 
         $comments = $post->comments()->orderByDesc('created_at')->paginate(5);
 
-        return view('pages.posts.show', compact('post', 'comments', 'reportTypes'));
+        return view('pages.posts.show', compact('post', 'comments', 'reportTypes', 'media'));
     }
 
     /**
@@ -108,10 +110,10 @@ class PostController extends Controller
     {
         $post->update($request->validated());
 
-        if ($post->hasMedia('picture') && $request->hasFile('Picture')) {
+        if ($post->hasMedia('picture') && $request->hasFile('picture')) {
             $post->getFirstMedia('picture')->delete();
         } elseif ($request->hasFile('picture')) {
-            $post->addMedia($request->picture)->toMediaCollection('picture');
+            $post->addMedia($request->picture)->withResponsiveImages()->toMediaCollection('picture');
         }
 
         return redirect()->route('posts.show', [
@@ -129,7 +131,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->authorize('edit', $post);
+        $this->authorize('update', $post);
 
         $post->delete();
 

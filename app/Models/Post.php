@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -56,6 +57,19 @@ class Post extends Model implements HasMedia
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    /**
+     * Register the conversions that should be performed.
+     *
+     * @param Media|null $media
+     * @return void
+     */
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this
+            ->addMediaConversion('my-conversion')
+            ->withResponsiveImages();
     }
 
     public function user()
@@ -118,7 +132,7 @@ class Post extends Model implements HasMedia
     public function getPictureUrl(): string
     {
         return $this->getFirstMedia('picture')
-            ? $this->getFirstMediaUrl('picture')
+            ? $this->getFirstMedia('picture')->getResponsiveImageUrls()[0]
             : asset('img/default_post_picture.jpg');
     }
 
