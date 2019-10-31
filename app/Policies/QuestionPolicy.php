@@ -17,4 +17,9 @@ class QuestionPolicy
             ? Response::allow()
             : Response::deny('404 not found.');
     }
+
+    public function beAnswered(User $user, Question $question)
+    {
+        return $question->isOpened() && !$question->isAnswered();
+    }
 }

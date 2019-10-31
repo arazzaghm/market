@@ -14,12 +14,14 @@ class QuestionController extends Controller
 
         $totalOpenedQuestions = Question::where('status', Question::STATUS_OPENED)->count();
 
-        $totalClosedQuestions = $totalOpenedQuestions - $totalOpenedQuestions;
+        $totalClosedQuestions = $totalQuestions - $totalOpenedQuestions;
 
-        $questions = Question::paginate(50);
+        $openedQuestions = Question::where('status', Question::STATUS_OPENED)->paginate(25);
+        $closedQuestions = Question::where('status', Question::STATUS_CLOSED)->paginate(25);
 
         return view('admins.pages.questions.index', compact(
-            'questions',
+            'openedQuestions',
+            'closedQuestions',
             'totalQuestions',
             'totalOpenedQuestions',
             'totalClosedQuestions'
@@ -33,5 +35,16 @@ class QuestionController extends Controller
         }
 
         return view('admins.pages.questions.show', ['question' => $question]);
+    }
+
+    public function answer(Request $request, Question $question)
+    {
+        $question->answer()->create([
+            'text' => $request->text
+        ]);
+
+        $question->close();
+
+        return back();
     }
 }

@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
 
     Route::get('/questions', 'QuestionController@index')->name('questions.index');
     Route::get('/questions/{question}', 'QuestionController@show')->name('questions.show');
+    Route::post('/questions/answer/{question}', 'QuestionController@answer')->name('questions.answer');
 });
 
 Route::group(['middleware' => ['auth']], function () {
