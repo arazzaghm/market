@@ -27,6 +27,10 @@ class QuestionController extends Controller
     {
         $this->authorize('view', $question);
 
+        if ($question->isAnswered() && $question->answer->isNotViewed()) {
+            $question->answer->makeViewed();
+        }
+
         return view('pages.questions.show', compact('question'));
     }
 }

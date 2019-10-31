@@ -68,7 +68,12 @@
                             </a>
 
                             <a href="{{route('questions.index')}}" class="dropdown-item">
-                                <i class="fa fa-question-circle"></i> Help
+                                @if($authHasNewAnswers)
+                                    <span class="badge badge-danger">@countedAuthNewAnswers</span>
+                                @else
+                                    <i class="fa fa-question-circle"></i>
+                                @endif
+                                Help
                             </a>
 
                             <a class="dropdown-item" href="{{ route('logout') }}"

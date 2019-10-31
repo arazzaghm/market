@@ -12,7 +12,11 @@
         </a>
         <a href="{{route('questions.index')}}"
            class="text-decoration-none {{\Request::route()->getName() == 'questions.index' ? 'text-dark' :''}}">
-            <li class="list-group-item">Support <span class="badge badge-danger ">4</span></li>
+            <li class="list-group-item">Support
+                @if($authHasNewAnswers)
+                    <span class="badge badge-danger ">{{$countedAuthNewAnswers}}</span>
+                @endif
+            </li>
         </a>
     </ul>
 </div>
