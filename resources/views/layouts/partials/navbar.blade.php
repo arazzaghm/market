@@ -29,9 +29,11 @@
             </ul>
 
             <ul class="navbar-nav ml-auto">
-                <a class="btn btn btn-danger  @guest {{'disabled'}} @endguest" href="{{route('posts.create')}}"> <i
-                        class="fa fa-plus"></i> Add new
-                    offer</a>
+                <li class="nav-item mt-2">
+                    <a class="btn btn btn-danger  @guest {{'disabled'}} @endguest" href="{{route('posts.create')}}">
+                        <i class="fa fa-plus"></i> Add new offer
+                    </a>
+                </li>
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
@@ -51,6 +53,8 @@
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <img src="{{auth()->user()->getAvatarUrl()}}" style="max-width: 40px; max-height: 40px;"
+                                 class="rounded-circle" alt="">
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 

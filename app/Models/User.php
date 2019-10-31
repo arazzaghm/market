@@ -90,7 +90,7 @@ class User extends Authenticatable implements HasMedia, BannableContract
 
     public function getFormattedFulName()
     {
-       $this->isBanned() ?  $prefix = 'Banned' : $prefix = null;
+        $this->isBanned() ? $prefix = 'Banned' : $prefix = null;
 
         $name = new UserNameFormatter($this->name, $prefix);
 
@@ -110,5 +110,12 @@ class User extends Authenticatable implements HasMedia, BannableContract
     public function questions()
     {
         return $this->hasMany(Question::class);
+    }
+
+    public function getAvatarUrl(): string
+    {
+        return $this->getFirstMedia('avatar')
+            ? $this->getFirstMediaUrl('avatar')
+            : asset('img/default_avatar.png');
     }
 }

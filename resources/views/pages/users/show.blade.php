@@ -7,7 +7,7 @@
                 <div class="profile-img">
                     <img
                         class="mt-1"
-                        src="{{$user->getFirstMedia('avatar') ? $user->getFirstMediaUrl('avatar')  : asset('img/default_avatar.png')}}">
+                        src="{{$user->getAvatarUrl()}}">
                     @can('editAvatar', $user)
                         <form action="{{route('avatar.store', ['user' => $user])}}" method="post"
                               enctype="multipart/form-data">

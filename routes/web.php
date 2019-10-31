@@ -23,7 +23,6 @@ Route::get('/search', 'SearchController@index')->name('search');
 
 Route::get('/users/id{user}', 'UserController@show')->name('users.show');
 
-
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin'], 'namespace' => 'Admin'], function () {
     Route::get('/', 'IndexController@index')->name('home');
     Route::get('/users', 'UserController@index')->name('users.index');
