@@ -23,6 +23,8 @@ Route::get('/search', 'SearchController@index')->name('search');
 
 Route::get('/users/id{user}', 'UserController@show')->name('users.show');
 
+Route::get('/popular-questions', 'PopularQuestionController@index')->name('popular-questions.index');
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin'], 'namespace' => 'Admin'], function () {
     Route::get('/', 'IndexController@index')->name('home');
     Route::get('/users', 'UserController@index')->name('users.index');
@@ -85,10 +87,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/reports/store/{model}', 'ReportController@store')->name('reports.store');
 
-    Route::get('/settings', 'SettingsController@index')->name('settings.index');
-    Route::get('/settings/statistics', 'SettingsController@statistics')->name('settings.statistics');
-
-    Route::get('/popular-questions', 'PopularQuestionController@index')->name('popular-questions.index');
+    Route::get('/settings/', 'SettingsController@index');
+    Route::get('/settings/my-information', 'SettingsController@index')->name('settings.index');
+    Route::get('/my-statistics', 'SettingsController@statistics')->name('settings.statistics');
 
     Route::get('/my-questions', 'QuestionController@index')->name('questions.index');
     Route::post('/questions/store', 'QuestionController@store')->name('questions.store');

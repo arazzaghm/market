@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
+use phpDocumentor\Reflection\Types\Self_;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
@@ -76,6 +77,21 @@ class User extends Authenticatable implements HasMedia, BannableContract
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function popularPosts($direction = 'desc')
+    {
+        return $this->hasMany(Post::class)->orderBy('viewed_times', $direction);
+    }
+
+    public function hiddenPosts()
+    {
+        return $this->hasMany(Post::class)->where('status','=', Post::STATUS_HIDDEN);
+    }
+
+    public function archivedPosts()
+    {
+        return $this->hasMany(Post::class)->where('status','=', Post::STATUS_ARCHIVED);
     }
 
     public function comments()

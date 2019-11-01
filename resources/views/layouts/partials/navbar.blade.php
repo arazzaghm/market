@@ -17,12 +17,12 @@
             <ul class="navbar-nav mr-auto">
                 <form action="{{route('search')}}">
                     <div class="form-group row mt-3">
-                        <div class="col-sm-10">
+                        <div class="col-sm-10 mt-2">
                             <input type="text" class="form-control form-control-sm" id="search" name="title"
                                    placeholder="Search">
                         </div>
-                        <div class="col-sm-1">
-                            <button class="btn btn-success btn-sm">Search</button>
+                        <div class="col-sm-1 ">
+                            <button class="btn btn-success btn-sm mt-sm-2">Search</button>
                         </div>
                     </div>
                 </form>
@@ -53,7 +53,7 @@
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <img src="{{auth()->user()->getAvatarUrl()}}" style="max-width: 40px; max-height: 40px;"
+                            <img src="{{auth()->user()->getAvatarUrl()}}" style="width: 40px; height: 40px;"
                                  class="rounded-circle" alt="">
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>

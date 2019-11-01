@@ -14,9 +14,9 @@ class UserController extends Controller
 
         $reportTypes = $user->reportTypes()->get();
 
-        $countedArchivedPosts = $user->posts()->where('status', Post::STATUS_ARCHIVED)->count();
+        $countedArchivedPosts = $user->archivedPosts()->count();
 
-        $countedHiddenPosts = $user->posts()->where('status', Post::STATUS_HIDDEN)->count();
+        $countedHiddenPosts = $user->hiddenPosts()->count();
 
         $posts = $user->posts()->with('Category')->paginate(12);
 
