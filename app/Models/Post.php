@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use App\Formatters\DateFormatter;
+use App\Traits\FormatCreatedAdDateTrait;
 use App\Traits\ReportableTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -15,7 +18,7 @@ use Spatie\Sluggable\SlugOptions;
 
 class Post extends Model implements HasMedia
 {
-    use SoftDeletes, HasSlug, HasMediaTrait, ReportableTrait;
+    use SoftDeletes, HasSlug, HasMediaTrait, ReportableTrait, FormatCreatedAdDateTrait;
 
     const STATUS_VISIBLE = 1;
     const STATUS_ARCHIVED = 2;
@@ -72,63 +75,107 @@ class Post extends Model implements HasMedia
             ->withResponsiveImages();
     }
 
+    /**
+     * User.
+     *
+     * @return BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Category.
+     *
+     * @return BelongsTo
+     */
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * Comments.
+     *
+     * @return HasMany
+     */
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * Gets category name.
+     *
+     * @return string
+     */
     public function getCategoryName(): string
     {
         return $this->category()->first()->name;
     }
 
+    /**
+     * Checks if post is viewable.
+     *
+     * @return bool
+     */
     public function isViewable(): bool
     {
         return $this->status != self::STATUS_HIDDEN;
     }
 
+    /**
+     * Checks if auth is owner of the post.
+     *
+     * @return bool
+     */
     public function authIsOwner(): bool
     {
         return $this->user_id === auth()->id();
     }
 
+    /**
+     * Checks if post is archived.
+     *
+     * @return bool
+     */
     public function isArchived(): bool
     {
         return $this->status == self::STATUS_ARCHIVED;
     }
 
+    /**
+     * Checks if post is hidden.
+     *
+     * @return bool
+     */
     public function isHidden(): bool
     {
         return $this->status == self::STATUS_HIDDEN;
     }
 
+    /**
+     * Hides the post.
+     */
     public function hide()
     {
         $this->update(['status' => self::STATUS_HIDDEN]);
     }
 
+    /**
+     * Unhides the post.
+     */
     public function unhide()
     {
         $this->update(['status' => self::STATUS_VISIBLE]);
     }
 
-    public function formatCreatedAtDate()
-    {
-        $date = new DateFormatter($this->created_at);
-
-        return $date->format();
-    }
-
+    /**
+     * Gets picture URL.
+     *
+     * @return string
+     */
     public function getPictureUrl(): string
     {
         return $this->getFirstMedia('picture')
@@ -136,16 +183,31 @@ class Post extends Model implements HasMedia
             : asset('img/default_post_picture.jpg');
     }
 
+    /**
+     * Gets post status as string.
+     *
+     * @return string
+     */
     public function getStatusAsString(): string
     {
         return $this->statuses[$this->status];
     }
 
+    /**
+     * Bookmarks.
+     *
+     * @return HasMany
+     */
     public function bookmarks()
     {
         return $this->hasMany(Bookmark::class);
     }
 
+    /**
+     * Checks if post is in bookmarks.
+     *
+     * @return bool
+     */
     public function isInBookmarks(): bool
     {
         return $this
@@ -155,16 +217,27 @@ class Post extends Model implements HasMedia
             ->exists();
     }
 
+    /**
+     * Adds post to auths bookmarks.
+     */
     public function addToBookmarks()
     {
         Auth::user()->bookmarks()->create(['post_id' => $this->id]);
     }
 
+    /**
+     * Removes post from auths bookmarks.
+     */
     public function removeFromBookmarks()
     {
         $this->bookmarks()->where('user_id', Auth::id())->delete();
     }
 
+    /**
+     * Reports.
+     *
+     * @return HasMany
+     */
     public function reports()
     {
         return $this->hasMany(Report::class, 'model_id');

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Formatters\IconNameFormatter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -33,11 +34,23 @@ class Category extends Model
         return 'slug';
     }
 
+    /**
+     * Posts.
+     *
+     * @return HasMany
+     */
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
 
+    /**
+     * Gets the fa icon name.
+     *
+     * For example: fa-example.
+     *
+     * @return mixed|string
+     */
     public function getFaIconName()
     {
         $iconName = new IconNameFormatter($this->icon_name);
@@ -45,26 +58,51 @@ class Category extends Model
         return $iconName->format();
     }
 
+    /**
+     * Check if category is pinned.
+     *
+     * @return bool
+     */
     public function isPinned(): bool
     {
         return $this->is_pinned == true;
     }
 
+    /**
+     * Check if category is not pinned.
+     *
+     * @return bool
+     */
     public function isNotPinned(): bool
     {
         return $this->isPinned() == false;
     }
 
+    /**
+     * Pins the category.
+     *
+     * @return bool
+     */
     public function pin()
     {
         return $this->update(['is_pinned' => true]);
     }
 
+    /**
+     * Unpins the category.
+     *
+     * @return bool
+     */
     public function unpin()
     {
         return $this->update(['is_pinned' => false]);
     }
 
+    /**
+     * Counts pinned categories.
+     *
+     * @return int
+     */
     public static function countPinned(): int
     {
         return self::where('is_pinned', true)->count();

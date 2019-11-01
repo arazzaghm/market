@@ -12,6 +12,8 @@ class UserPolicy
     use HandlesAuthorization;
 
     /**
+     * Checks if user can update the avatar.
+     *
      * @param User $user
      * @param User $visitor
      * @return bool
@@ -21,6 +23,13 @@ class UserPolicy
         return $user->id === $visitor->id;
     }
 
+    /**
+     * Checks if user can be banned.
+     *
+     * @param User $firstUser
+     * @param User $secondUser
+     * @return Response
+     */
     public function beBanned(User $firstUser, User $secondUser)
     {
         return !$secondUser->isAdmin() && $firstUser->isAdmin()

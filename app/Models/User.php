@@ -8,6 +8,7 @@ use App\Traits\ReportableTrait;
 use Cog\Contracts\Ban\Bannable as BannableContract;
 use Cog\Laravel\Ban\Traits\Bannable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
@@ -67,6 +68,8 @@ class User extends Authenticatable implements HasMedia, BannableContract
     }
 
     /**
+     * Checks if user is online.
+     *
      * @return bool
      */
     public function isOnline(): bool
@@ -74,36 +77,68 @@ class User extends Authenticatable implements HasMedia, BannableContract
         return Cache::has('user-online-' . $this->id);
     }
 
+    /**
+     *  Posts.
+     * @return HasMany
+     */
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
 
+    /**
+     * Popular posts.
+     * @return HasMany
+     */
     public function popularPosts($direction = 'desc')
     {
         return $this->hasMany(Post::class)->orderBy('viewed_times', $direction);
     }
 
+    /**
+     * Hidden posts.
+     * @return HasMany
+     */
     public function hiddenPosts()
     {
         return $this->hasMany(Post::class)->where('status','=', Post::STATUS_HIDDEN);
     }
 
+    /**
+     * Archived posts.
+     *
+     * @return HasMany
+     */
     public function archivedPosts()
     {
         return $this->hasMany(Post::class)->where('status','=', Post::STATUS_ARCHIVED);
     }
 
+    /**
+     * Comments.
+     *
+     * @return HasMany
+     */
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * Bookmarks.
+     *
+     * @return HasMany
+     */
     public function bookmarks()
     {
         return $this->hasMany(Bookmark::class);
     }
 
+    /**
+     * Gets formatted full name.
+     *
+     * @return mixed|string
+     */
     public function getFormattedFulName()
     {
         $this->isBanned() ? $prefix = 'Banned' : $prefix = null;
@@ -113,21 +148,41 @@ class User extends Authenticatable implements HasMedia, BannableContract
         return $name->format();
     }
 
+    /**
+     * Created reports.
+     *
+     * @return HasMany
+     */
     public function createdReports()
     {
         return $this->hasMany(Report::class, 'user_id');
     }
 
+    /**
+     * Received reports.
+     *
+     * @return HasMany
+     */
     public function receivedReports()
     {
         return $this->hasMany(Report::class, 'model_id');
     }
 
+    /**
+     * Questions.
+     *
+     * @return HasMany
+     */
     public function questions()
     {
         return $this->hasMany(Question::class);
     }
 
+    /**
+     * Gets avatar URL.
+     *
+     * @return string
+     */
     public function getAvatarUrl(): string
     {
         return $this->getFirstMedia('avatar')

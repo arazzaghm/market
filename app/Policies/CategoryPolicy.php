@@ -11,6 +11,11 @@ class CategoryPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * Checks if category can be pinned.
+     *
+     * @return Response
+     */
     public function bePinned()
     {
         return Category::countPinned() < 5
@@ -18,6 +23,12 @@ class CategoryPolicy
             : Response::deny('You can not pin this category!');
     }
 
+    /**
+     * Checks if category can be unpinned.
+     *
+     * @param Category $category
+     * @return Response
+     */
     public function beUnpinned(Category $category)
     {
         return $category->isPinned()
