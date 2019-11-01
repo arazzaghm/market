@@ -16,9 +16,18 @@ class CategoryController extends Controller
     {
         $totalCategories = Category::count();
 
-        $categories = Category::paginate(50);
+        $categories = Category::where('is_pinned', false)->paginate(50);
 
-        return view('admins.pages.categories.index', compact('categories', 'totalCategories'));
+        $totalPinnedCategories = Category::countPinned();
+
+        $pinnedCategories = Category::where('is_pinned', true)->get();
+
+        return view('admins.pages.categories.index', compact(
+            'categories',
+            'totalCategories',
+            'pinnedCategories',
+            'totalPinnedCategories'
+        ));
     }
 
     public function create()
@@ -49,6 +58,13 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+
+        return back();
+    }
+
+    public function pin(Category $category)
+    {
+        $category->isNotPinned() ? $category->pin() : $category->unpin();
 
         return back();
     }

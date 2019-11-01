@@ -11,6 +11,8 @@ class Category extends Model
 {
     use HasSlug;
 
+    protected $fillable = ['name', 'icon_name', 'is_pinned', 'slug'];
+
     /**
      * Get the options for generating the slug.
      */
@@ -31,8 +33,6 @@ class Category extends Model
         return 'slug';
     }
 
-    protected $fillable = ['name', 'icon_name', 'slug'];
-
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -43,5 +43,30 @@ class Category extends Model
         $iconName = new IconNameFormatter($this->icon_name);
 
         return $iconName->format();
+    }
+
+    public function isPinned(): bool
+    {
+        return $this->is_pinned == true;
+    }
+
+    public function isNotPinned(): bool
+    {
+        return $this->isPinned() == false;
+    }
+
+    public function pin()
+    {
+        return $this->update(['is_pinned' => true]);
+    }
+
+    public function unpin()
+    {
+        return $this->update(['is_pinned' => false]);
+    }
+
+    public static function countPinned(): int
+    {
+        return self::where('is_pinned', true)->count();
     }
 }

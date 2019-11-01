@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::get('/categories/edit/{category}', 'CategoryController@edit')->name('categories.edit');
     Route::patch('/categories/{category}', 'CategoryController@update')->name('categories.update');
     Route::delete('/categories/delete/{category}', 'CategoryController@destroy')->name('categories.destroy');
+    Route::patch('/categories/pin/{category}', 'CategoryController@pin')->name('categories.pin');
 
     Route::get('/report-types', 'ReportTypeController@index')->name('report-types.index');
     Route::get('/report-types/create', 'ReportTypeController@create')->name('report-types.create');

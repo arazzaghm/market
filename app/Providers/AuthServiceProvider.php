@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\Question;
 use App\Models\User;
+use App\Policies\CategoryPolicy;
 use App\Policies\PostPolicy;
 use App\Policies\QuestionPolicy;
 use App\Policies\UserPolicy;
@@ -22,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
         User::class => UserPolicy::class,
         Post::class => PostPolicy::class,
         Question::class => QuestionPolicy::class,
+        Category::class => CategoryPolicy::class,
     ];
 
     /**
