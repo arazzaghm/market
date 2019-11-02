@@ -11,7 +11,7 @@
                         Actions
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{route('posts.edit', ['post' => $post])}}">Edit</a>
+                        <button class="dropdown-item"  data-toggle="modal" data-target="#editPost">Edit</button>
                         <form action="{{route('posts.hide', ['post' => $post])}}" method="POST">
                             @csrf
                             <button class="dropdown-item">{{$post->isHidden() ? 'Make visible' : 'Hide'}}</button>
@@ -144,4 +144,26 @@
             </div>
         </div>
     @endauth
+
+    @can('update', $post)
+        <div class="modal fade" id="editPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit post</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{route('posts.update', ['post' => $post])}}" method="POST" enctype="multipart/form-data">
+                            @method('PATCH')
+                            @include('pages.posts.partials.form')
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endcan
 @endsection

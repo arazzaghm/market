@@ -76,7 +76,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/users/avatar/{user}/change', 'AvatarController@store')->name('avatar.store');
 
     Route::get('/posts/create', 'PostController@create')->name('posts.create');
-    Route::get('/post/edit/{post}', 'PostController@edit')->name('posts.edit');
     Route::post('/posts/store', 'PostController@store')->name('posts.store');
     Route::patch('/posts/update/{post}', 'PostController@update')->name('posts.update');
     Route::delete('/posts/destroy/{post}', 'PostController@destroy')->name('posts.destroy');

@@ -79,6 +79,14 @@ class PostController extends Controller
     {
         $this->authorize('view', $post);
 
+        if ($post->authIsOwner()) {
+            $allCurrencies = Currency::all();
+            $allCategories = Category::all();
+        } else {
+            $allCurrencies = null;
+            $allCategories = null;
+        }
+
         if (Auth::id() != $post->user_id) {
             $post->increment('viewed_times');
         }
@@ -89,25 +97,14 @@ class PostController extends Controller
 
         $comments = $post->comments()->orderByDesc('created_at')->paginate(5);
 
-        return view('pages.posts.show', compact('post', 'comments', 'reportTypes', 'media'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Post $post
-     * @return void
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function edit(Post $post)
-    {
-        $this->authorize('update', $post);
-
-        $allCurrencies = Currency::all();
-
-        $allCategories = Category::all();
-
-        return view('pages.posts.edit', compact('allCategories', 'post', 'allCurrencies'));
+        return view('pages.posts.show', compact(
+            'post',
+            'comments',
+            'reportTypes',
+            'media',
+            'allCurrencies',
+            'allCategories'
+        ));
     }
 
     /**
