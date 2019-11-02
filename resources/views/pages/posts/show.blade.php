@@ -11,22 +11,41 @@
                         Actions
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <button class="dropdown-item"  data-toggle="modal" data-target="#editPost">Edit</button>
+                        @can('archive', $post)
+                            <button class="dropdown-item" data-toggle="modal" data-target="#editPost">
+                                <i class="fa fa-edit"></i>
+                                Edit
+                            </button>
+                        @endcannot
+                        <button class="dropdown-item" data-toggle="modal" data-target="#deletePost">
+                            <i class="fa fa-trash"></i>
+                            Delete
+                        </button>
                         <form action="{{route('posts.hide', ['post' => $post])}}" method="POST">
                             @csrf
-                            <button class="dropdown-item">{{$post->isHidden() ? 'Make visible' : 'Hide'}}</button>
+                            <button class="dropdown-item">
+                                <i class="fa {{!$post->isHidden() ? 'fa-eye-slash' : 'fa-eye'}}"></i>
+                                {{$post->isHidden() ? 'Make visible' : 'Hide'}}
+                            </button>
                         </form>
-                        <form action="{{route('posts.destroy', ['post' => $post])}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="dropdown-item">Delete</button>
-                        </form>
-                        @if($post->getFirstMedia('picture'))
-                            <form action="{{route('post-pictures.destroy', ['post' => $post])}}" method="POST">
-                                @csrf
-                                <button class="dropdown-item">Delete picture</button>
-                            </form>
-                        @endif
+
+                        @can('archive', $post)
+                            @if($post->getFirstMedia('picture'))
+                                <form action="{{route('post-pictures.destroy', ['post' => $post])}}" method="POST">
+                                    @csrf
+                                    <button class="dropdown-item">
+                                        <i class="fa fa-photo"></i>
+                                        Delete picture
+                                    </button>
+                                </form>
+                            @endif
+                        @endcan
+                        @can('archive', $post)
+                            <button class="dropdown-item" data-toggle="modal" data-target="#archivePost">
+                                <i class="fa fa-archive"></i>
+                                Archive
+                            </button>
+                        @endcan
                     </div>
                 </div>
             @endcan
@@ -146,20 +165,88 @@
     @endauth
 
     @can('update', $post)
-        <div class="modal fade" id="editPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        @can('archive', $post)
+            <div class="modal fade" id="editPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit post</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{route('posts.update', ['post' => $post])}}" method="POST"
+                                  enctype="multipart/form-data">
+                                @method('PATCH')
+                                @include('pages.posts.partials.form')
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endcan
+    @endcan
+
+    @can('archive', $post)
+        <div class="modal fade" id="archivePost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit post</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Archive post</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{route('posts.update', ['post' => $post])}}" method="POST" enctype="multipart/form-data">
-                            @method('PATCH')
-                            @include('pages.posts.partials.form')
-                            <button type="submit" class="btn btn-primary">Save</button>
+                        <p>
+                            Are you sure? You won`t be able to edit this post and another people won`t be able to see it
+                            in search!
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{{route('posts.archive', ['post' => $post])}}" method="POST">
+                            @csrf
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Nope, I won`t do it
+                            </button>
+                            <button type="submit" class="btn btn-danger">Yes, i`m sure!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endcan
+
+    @can('update', $post)
+        <div class="modal fade" id="deletePost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete post</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Are you sure? You won`t be able restore the post! Do you want to continue?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{{route('posts.destroy', ['post' => $post])}}" method="POST"
+                              enctype="multipart/form-data">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel
+                            </button>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                                Delete!
+                            </button>
                         </form>
                     </div>
                 </div>

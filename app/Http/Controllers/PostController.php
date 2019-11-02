@@ -9,7 +9,11 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Currency;
 use App\Models\Post;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -18,7 +22,7 @@ class PostController extends Controller
      * Display a listing of the resource.
      *
      * @param Category|null $category
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(?Category $category)
     {
@@ -36,7 +40,7 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -50,8 +54,8 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(CreatePostRequest $request)
     {
@@ -73,10 +77,11 @@ class PostController extends Controller
      * @param Category $category
      * @param Post $post
      * @return void
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function show(Category $category, Post $post)
     {
+//        dd($post->status == Post::STATUS_ARCHIVED);
         $this->authorize('view', $post);
 
         if ($post->authIsOwner()) {
@@ -113,7 +118,7 @@ class PostController extends Controller
      * @param UpdatePostRequest $request
      * @param Post $post
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
@@ -136,7 +141,7 @@ class PostController extends Controller
      *
      * @param Post $post
      * @return void
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function destroy(Post $post)
     {
@@ -150,15 +155,33 @@ class PostController extends Controller
     }
 
     /**
+     * Hides and unhides post.
+     *
      * @param Post $post
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function hide(Post $post)
     {
         $this->authorize('update', $post);
 
         $post->isHidden() ? $post->unhide() : $post->hide();
+
+        return back();
+    }
+
+    /**
+     * Archives the post.
+     *
+     * @param Post $post
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function archive(Post $post)
+    {
+        $this->authorize('archive', $post);
+
+        $post->archive();
 
         return back();
     }

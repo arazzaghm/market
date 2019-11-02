@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('/posts/update/{post}', 'PostController@update')->name('posts.update');
     Route::delete('/posts/destroy/{post}', 'PostController@destroy')->name('posts.destroy');
     Route::post('/posts/hide/{post}', 'PostController@hide')->name('posts.hide');
+    Route::post('/posts/archive/{post}', 'PostController@archive')->name('posts.archive');
 
     Route::get('/bookmarks', 'BookmarkController@index')->name('bookmarks.index');
 

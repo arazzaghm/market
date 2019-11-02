@@ -253,4 +253,12 @@ class Post extends Model implements HasMedia
     {
         return $this->belongsTo(Currency::class);
     }
+
+    /**
+     *
+     */
+    public function archive()
+    {
+        $this->update(['status' => self::STATUS_ARCHIVED]);
+    }
 }

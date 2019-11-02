@@ -39,4 +39,18 @@ class PostPolicy
             ? Response::allow()
             : Response::deny('You can not see this post.');
     }
+
+    /**
+     * Checks if post can be archived.
+     *
+     * @param User $user
+     * @param Post $post
+     * @return Response
+     */
+    public function archive(User $user, Post $post)
+    {
+        return $user->id === $post->user_id && !$post->isArchived()
+            ? Response::allow()
+            : Response::deny('You do can not archive this post.');
+    }
 }
