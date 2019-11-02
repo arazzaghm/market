@@ -19,6 +19,7 @@ class CreatePostRequest extends BaseRequest
             'price' => 'required|numeric',
             'location' => 'required',
             'category_id' => 'required|exists:categories,id',
+            'currency_id' => 'required|exists:currencies,id',
             'picture' => 'nullable|image:png,jpeg,jpg,bmp'
         ];
     }

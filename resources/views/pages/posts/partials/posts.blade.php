@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{$post->title}}</h5>
                         <p class="card-text">{{$post->description}}</p>
-                        <p class="card-text">${{$post->price}}</p>
+                        <p class="card-text">{{$post->price}} {{$post->currency->name}} </p>
                         <p class="card-text">{{$post->category->icon_name}}</p>
                         @if($post->isArchived())
                             <p class="card-text text-warning">Achieved</p>

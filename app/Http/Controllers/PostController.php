@@ -7,6 +7,7 @@ use App\Http\Requests\Post\UpdatePostRequest;
 use App\Http\Requests\Post\CreatePostRequest;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Currency;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ class PostController extends Controller
         $query = Post::where('status', '!=', Post::STATUS_HIDDEN);
 
         if ($category->id !== null) {
-            $query = $query->where('category_id', $category->id);
+            $query->where('category_id', $category->id);
         }
 
         $posts = $query->paginate(12);
@@ -41,7 +42,9 @@ class PostController extends Controller
     {
         $allCategories = Category::all();
 
-        return view('pages.posts.create', compact('allCategories'));
+        $allCurrencies = Currency::all();
+
+        return view('pages.posts.create', compact('allCategories', 'allCurrencies'));
     }
 
     /**
@@ -100,9 +103,11 @@ class PostController extends Controller
     {
         $this->authorize('update', $post);
 
+        $allCurrencies = Currency::all();
+
         $allCategories = Category::all();
 
-        return view('pages.posts.edit', compact('allCategories', 'post'));
+        return view('pages.posts.edit', compact('allCategories', 'post', 'allCurrencies'));
     }
 
     /**

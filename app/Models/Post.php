@@ -40,6 +40,7 @@ class Post extends Model implements HasMedia
         'category_id',
         'price',
         'status',
+        'currency_id',
     ];
 
     /**
@@ -241,5 +242,15 @@ class Post extends Model implements HasMedia
     public function reports()
     {
         return $this->hasMany(Report::class, 'model_id');
+    }
+
+    /**
+     * Currency.
+     *
+     * @return BelongsTo
+     */
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
     }
 }

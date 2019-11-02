@@ -64,6 +64,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::get('/popular-questions/edit/{popularQuestion}', 'PopularQuestionController@edit')->name('popular-questions.edit');
     Route::patch('/popular-questions/update/{popularQuestion}', 'PopularQuestionController@update')->name('popular-questions.update');
     Route::delete('/popular-questions/update/{popularQuestion}', 'PopularQuestionController@destroy')->name('popular-questions.destroy');
+
+    Route::get('/currencies', 'CurrencyController@index')->name('currencies.index');
+    Route::post('/currencies/store', 'CurrencyController@store')->name('currencies.store');
+    Route::get('/currencies/edit/{currency}', 'CurrencyController@edit')->name('currencies.edit');
+    Route::patch('/currencies/update/{currency}', 'CurrencyController@update')->name('currencies.update');
+    Route::delete('/currencies/destroy/{currency}', 'CurrencyController@destroy')->name('currencies.destroy');
 });
 
 Route::group(['middleware' => ['auth']], function () {

@@ -36,7 +36,7 @@
                 </div>
                 <div class="card-body">
                     <h3 class="card-title">{{$post->title}}</h3>
-                    <h4>${{$post->price}}</h4>
+                    <h4>{{$post->price}} {{$post->currency->name}}</h4>
                     <h4>Category: <span
                             class="fa {{$post->category->getFaIconName()}}"></span> {{$post->category->name}}</h4>
                     <p class="card-text">{{$post->description}}</p>
