@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Http\Requests\Post\CreatePostRequest;
+use App\Mail\User\ArchivedPostMail;
+use App\Mail\User\DeletedPostMail;
+use App\Mail\User\NewPostMail;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Currency;
@@ -15,6 +18,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -54,16 +58,20 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CreatePostRequest $request
      * @return Response
      */
     public function store(CreatePostRequest $request)
     {
-        $post = auth()->user()->posts()->create($request->validated());
+        $post = Auth::user()->posts()->create($request->validated());
 
         if ($request->hasFile('picture')) {
             $post->addMedia($request->picture)->withResponsiveImages()->toMediaCollection('picture');
         }
+
+        \Mail::to(Auth::user()->email)->send(
+            new NewPostMail($post)
+        );
 
         return redirect()->route('posts.show', [
             'post' => $post,
@@ -81,7 +89,6 @@ class PostController extends Controller
      */
     public function show(Category $category, Post $post)
     {
-//        dd($post->status == Post::STATUS_ARCHIVED);
         $this->authorize('view', $post);
 
         if ($post->authIsOwner()) {
@@ -147,6 +154,10 @@ class PostController extends Controller
     {
         $this->authorize('update', $post);
 
+        \Mail::to(Auth::user()->email)->send(
+            new DeletedPostMail()
+        );
+
         $post->delete();
 
         return redirect()->route('users.show', [
@@ -182,6 +193,10 @@ class PostController extends Controller
         $this->authorize('archive', $post);
 
         $post->archive();
+
+        \Mail::to(Auth::user()->email)->send(
+            new ArchivedPostMail($post)
+        );
 
         return back();
     }
