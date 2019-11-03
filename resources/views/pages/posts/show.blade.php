@@ -51,7 +51,7 @@
             @endcan
             <div class="card mt-4">
                 <div class="d-flex justify-content-center">
-                    <img class="card-img-top" src="{{ $media }}" style="width: 50%; height: 50%;">
+                    <img class="card-img-top {{$post->isArchived() ? 'grayscale' : ''}}" src="{{ $media }}" style="width: 50%; height: 50%;">
                 </div>
                 <div class="card-body">
                     <h3 class="card-title">{{$post->title}}</h3>

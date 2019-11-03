@@ -86,8 +86,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">\
+                        {{$posts->links()}}
                         @include('pages.posts.partials.posts')
+                        {{$posts->links()}}
                     </div>
                 </div>
             </div>
