@@ -36,4 +36,11 @@ class UserPolicy
             ? Response::allow()
             : Response::deny();
     }
+
+    public function createCompany(User $user)
+    {
+        return !$user->hasCompany()
+            ? Response::allow()
+            : Response::deny('You can not create new company!');
+    }
 }

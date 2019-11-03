@@ -9,6 +9,7 @@ use Cog\Contracts\Ban\Bannable as BannableContract;
 use Cog\Laravel\Ban\Traits\Bannable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
@@ -48,7 +49,7 @@ class User extends Authenticatable implements HasMedia, BannableContract
     ];
 
     /**
-     * Checks if user is admin
+     * Checks if user is admin.
      *
      * @return bool
      */
@@ -58,7 +59,7 @@ class User extends Authenticatable implements HasMedia, BannableContract
     }
 
     /**
-     * Gets role name as string
+     * Gets role name as string.
      *
      * @return string
      */
@@ -79,6 +80,7 @@ class User extends Authenticatable implements HasMedia, BannableContract
 
     /**
      *  Posts.
+     *
      * @return HasMany
      */
     public function posts()
@@ -88,6 +90,7 @@ class User extends Authenticatable implements HasMedia, BannableContract
 
     /**
      * Popular posts.
+     *
      * @return HasMany
      */
     public function popularPosts($direction = 'desc')
@@ -97,11 +100,12 @@ class User extends Authenticatable implements HasMedia, BannableContract
 
     /**
      * Hidden posts.
+     *
      * @return HasMany
      */
     public function hiddenPosts()
     {
-        return $this->hasMany(Post::class)->where('status','=', Post::STATUS_HIDDEN);
+        return $this->hasMany(Post::class)->where('status', '=', Post::STATUS_HIDDEN);
     }
 
     /**
@@ -111,7 +115,7 @@ class User extends Authenticatable implements HasMedia, BannableContract
      */
     public function archivedPosts()
     {
-        return $this->hasMany(Post::class)->where('status','=', Post::STATUS_ARCHIVED);
+        return $this->hasMany(Post::class)->where('status', '=', Post::STATUS_ARCHIVED);
     }
 
     /**
@@ -188,5 +192,35 @@ class User extends Authenticatable implements HasMedia, BannableContract
         return $this->getFirstMedia('avatar')
             ? $this->getFirstMediaUrl('avatar')
             : asset('img/default_avatar.png');
+    }
+
+    /**
+     * Changes users role to given value.
+     *
+     * @param int $role
+     */
+    public function changeRoleTo($role = Role::USER)
+    {
+        $this->update(['role' => $role]);
+    }
+
+    /**
+     * Company.
+     *
+     * @return HasOne
+     */
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    /**
+     * Checks if user has company.
+     *
+     * @return bool
+     */
+    public function hasCompany(): bool
+    {
+        return $this->company()->exists();
     }
 }

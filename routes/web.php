@@ -70,6 +70,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::get('/currencies/edit/{currency}', 'CurrencyController@edit')->name('currencies.edit');
     Route::patch('/currencies/update/{currency}', 'CurrencyController@update')->name('currencies.update');
     Route::delete('/currencies/destroy/{currency}', 'CurrencyController@destroy')->name('currencies.destroy');
+
+    Route::get('/companies', 'CompanyController@index')->name('companies.index');
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -101,6 +103,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/my-questions', 'QuestionController@index')->name('questions.index');
     Route::post('/questions/store', 'QuestionController@store')->name('questions.store');
     Route::get('/my-questions/{question}', 'QuestionController@show')->name('questions.show');
+
+    Route::post('/companies/store', 'CompanyController@store')->name('companies.store');
+    Route::get('/companies/create', 'CompanyController@create')->name('companies.create');
 });
+
+Route::get('/companies/{company}', 'CompanyController@show')->name('companies.show');
 
 Route::get('/posts/{category?}', 'PostController@index')->name('posts.index');
