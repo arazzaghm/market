@@ -73,6 +73,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
 });
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::patch('/users/update/{user}', 'UserController@update')->name('users.update');
     Route::post('/users/avatar/{user}/change', 'AvatarController@store')->name('avatar.store');
 
     Route::get('/posts/create', 'PostController@create')->name('posts.create');

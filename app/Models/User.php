@@ -26,7 +26,7 @@ class User extends Authenticatable implements HasMedia, BannableContract
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role', 'banned_at',
+        'name', 'email', 'password', 'role', 'banned_at', 'password',
     ];
 
     /**
@@ -35,7 +35,7 @@ class User extends Authenticatable implements HasMedia, BannableContract
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'remember_token',
     ];
 
     /**

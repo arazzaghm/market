@@ -1,5 +1,4 @@
-<div class="col-4">
-
+<div class="col-md-4 mb-2">
     <h2>My settings</h2>
     <ul class="list-group">
         <a href="{{route('settings.index')}}"
