@@ -158,6 +158,8 @@ class PostController extends Controller
             new DeletedPostMail()
         );
 
+        $post->bookmarks()->delete();
+;
         $post->delete();
 
         return redirect()->route('users.show', [
