@@ -17,7 +17,8 @@ class CreateCompanyRequest extends BaseRequest
             'name' => 'required',
             'email' => 'email|required|unique:companies,email',
             'phone' => 'required|numeric',
-            'description' => 'required'
+            'description' => 'required',
+            'logo' => 'required|image|mimes:jpeg,jpg,png,bmp|dimensions:min_width=100,min_height=100,max_width=500,max_height=500'
         ];
     }
 }
