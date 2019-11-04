@@ -64,26 +64,13 @@ class Post extends Model implements HasMedia
     }
 
     /**
-     * Register the conversions that should be performed.
-     *
-     * @param Media|null $media
-     * @return void
-     */
-    public function registerMediaConversions(Media $media = null)
-    {
-        $this
-            ->addMediaConversion('my-conversion')
-            ->withResponsiveImages();
-    }
-
-    /**
-     * User.
+     * Company.
      *
      * @return BelongsTo
      */
-    public function user()
+    public function company()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Company::class);
     }
 
     /**
@@ -113,7 +100,7 @@ class Post extends Model implements HasMedia
      */
     public function getCategoryName(): string
     {
-        return $this->category()->first()->name;
+        return $this->category->name;
     }
 
     /**
@@ -133,7 +120,7 @@ class Post extends Model implements HasMedia
      */
     public function authIsOwner(): bool
     {
-        return $this->user_id === auth()->id();
+        return $this->company->user_id === auth()->id();
     }
 
     /**
@@ -180,7 +167,7 @@ class Post extends Model implements HasMedia
     public function getPictureUrl(): string
     {
         return $this->getFirstMedia('picture')
-            ? $this->getFirstMedia('picture')->getResponsiveImageUrls()[0]
+            ? $this->getFirstMediaUrl('picture')
             : asset('img/default_post_picture.jpg');
     }
 

@@ -33,18 +33,17 @@
                             </a>
                         </div>
                     @endauth
-                    <p class="proile-rating">TOTAL POSTS : <span>{{$countedPosts}}</span></p>
-                    <p class="proile-rating">HIDDEN POSTS : <span>{{$countedHiddenPosts}}</span></p>
-                    <p class="proile-rating">ARCHIVED POSTS : <span>{{$countedArchivedPosts}}</span></p>
+                    <p class="proile-rating">INFO: <span>SOME INFO HERE</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
                                aria-controls="home" aria-selected="true">About</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                               aria-controls="profile" aria-selected="false">Users post</a>
-                        </li>
+                        @if($user->hasCompany())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('companies.show', ['company' => $user->company])}}">Company</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -85,11 +84,6 @@
                                 <p>{{$user->email}}</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">\
-                        {{$posts->links()}}
-                        @include('pages.posts.partials.posts')
-                        {{$posts->links()}}
                     </div>
                 </div>
             </div>

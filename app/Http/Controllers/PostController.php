@@ -10,6 +10,7 @@ use App\Mail\User\DeletedPostMail;
 use App\Mail\User\NewPostMail;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Company;
 use App\Models\Currency;
 use App\Models\Post;
 use Exception;
@@ -45,9 +46,12 @@ class PostController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Response
+     * @throws AuthorizationException
      */
     public function create()
     {
+        $this->authorize('create',  new Post());
+
         $allCategories = Category::all();
 
         $allCurrencies = Currency::all();
@@ -59,17 +63,21 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreatePostRequest $request
+     * @param Company $company
      * @return Response
+     * @throws AuthorizationException
      */
-    public function store(CreatePostRequest $request)
+    public function store(CreatePostRequest $request, Company $company)
     {
-        $post = Auth::user()->posts()->create($request->validated());
+        $this->authorize('create',  new Post());
+
+        $post = $company->posts()->create($request->validated());
 
         if ($request->hasFile('picture')) {
-            $post->addMedia($request->picture)->withResponsiveImages()->toMediaCollection('picture');
+            $post->addMedia($request->picture)->toMediaCollection('picture');
         }
 
-        \Mail::to(Auth::user()->email)->send(
+        \Mail::to($company->email)->send(
             new NewPostMail($post)
         );
 
@@ -99,7 +107,7 @@ class PostController extends Controller
             $allCategories = null;
         }
 
-        if (Auth::id() != $post->user_id) {
+        if (!$post->authIsOwner()) {
             $post->increment('viewed_times');
         }
 
@@ -107,7 +115,7 @@ class PostController extends Controller
 
         $reportTypes = $post->reportTypes()->get();
 
-        $comments = $post->comments()->orderByDesc('created_at')->paginate(5);
+        $comments = $post->comments()->latest()->paginate(5);
 
         return view('pages.posts.show', compact(
             'post',
@@ -133,8 +141,9 @@ class PostController extends Controller
 
         if ($post->hasMedia('picture') && $request->hasFile('picture')) {
             $post->getFirstMedia('picture')->delete();
+            $post->addMedia($request->picture)->toMediaCollection('picture');
         } elseif ($request->hasFile('picture')) {
-            $post->addMedia($request->picture)->withResponsiveImages()->toMediaCollection('picture');
+            $post->addMedia($request->picture)->toMediaCollection('picture');
         }
 
         return redirect()->route('posts.show', [
@@ -158,8 +167,7 @@ class PostController extends Controller
             new DeletedPostMail()
         );
 
-        $post->bookmarks()->delete();
-;
+        $post->bookmarks()->delete();;
         $post->delete();
 
         return redirect()->route('users.show', [
