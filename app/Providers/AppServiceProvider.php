@@ -42,8 +42,16 @@ class AppServiceProvider extends ServiceProvider
             $view->with('authHasNewAnswers', QuestionAnswer::checkIfAuthHasNewAnswers());
         });
 
-       View::composer('*', function ($view) {
-           $view->with('countedAuthNewAnswers', QuestionAnswer::countAuthNewAnswers());
-       });
+        View::composer('*', function ($view) {
+            $view->with('countedAuthNewAnswers', QuestionAnswer::countAuthNewAnswers());
+        });
+
+        View::composer('*', function ($view) {
+            $view->with('authHasCompany',
+                Auth::check()
+                    ? Auth::user()->hasCompany()
+                    : false
+            );
+        });
     }
 }

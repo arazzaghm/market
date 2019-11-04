@@ -29,11 +29,6 @@
             </ul>
 
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item mt-2">
-                    <a class="btn btn btn-danger  @guest {{'disabled'}} @endguest" href="{{route('posts.create')}}">
-                        <i class="fa fa-plus"></i> Add new offer
-                    </a>
-                </li>
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
@@ -63,6 +58,11 @@
                                 <i class="fa fa-user"></i> My profile
                             </a>
 
+                            @if($authHasCompany)
+                                <a href="{{route('my-company.index')}}" class="dropdown-item">
+                                    <i class="fa fa-compass"></i> My company
+                                </a>
+                            @endif
                             <a href="{{route('bookmarks.index')}}" class="dropdown-item">
                                 <i class="fa fa-bookmark"></i> My bookmarks
                             </a>

@@ -106,6 +106,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/companies/store', 'CompanyController@store')->name('companies.store');
     Route::get('/companies/create', 'CompanyController@create')->name('companies.create');
+
+    Route::get('/my-company', 'MyCompanyController@index')->name('my-company.index');
 });
 
 Route::get('/companies/{company}', 'CompanyController@show')->name('companies.show');
