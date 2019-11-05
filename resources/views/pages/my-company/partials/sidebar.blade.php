@@ -5,8 +5,8 @@
            class="text-decoration-none {{\Request::route()->getName() == 'my-company.index' ? 'text-dark' :''}}">
             <li class="list-group-item">Homepage</li>
         </a>
-        <a href="{{route('settings.statistics')}}"
-           class="text-decoration-none {{\Request::route()->getName() == 'settings.statistics' ? 'text-dark' :''}}">
+        <a href="{{route('my-company.show')}}"
+           class="text-decoration-none {{\Request::route()->getName() == 'my-company.show' ? 'text-dark' :''}}">
             <li class="list-group-item">Company information</li>
         </a>
         <a href="{{route('questions.index')}}"

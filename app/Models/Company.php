@@ -49,4 +49,11 @@ class Company extends Model implements HasMedia, HasReports
 
         return $phoneNumber->format();
     }
+
+    public function getLogoUrl()
+    {
+        return $this->getFirstMedia('logo')
+            ? $this->getFirstMediaUrl('logo')
+            : asset('img/default_post_picture.jpg');
+    }
 }

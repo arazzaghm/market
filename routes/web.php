@@ -106,8 +106,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/companies/store', 'CompanyController@store')->name('companies.store');
     Route::get('/companies/create', 'CompanyController@create')->name('companies.create');
+});
 
-    Route::get('/my-company', 'MyCompanyController@index')->name('my-company.index');
+Route::group(['middleware' => ['auth', 'hasCompany'], 'as' => 'my-company.'], function () {
+    Route::get('/my-company', 'MyCompanyController@index')->name('index');
+    Route::get('/my-company/show', 'MyCompanyController@show')->name('show');
+    Route::delete('/my-company/logo', 'MyCompanyLogoController@destroy')->name('logo.destroy');
+    Route::patch('/my-company/update', 'MyCompanyController@update')->name('update');
 });
 
 Route::get('/companies/{company}', 'CompanyController@show')->name('companies.show');
