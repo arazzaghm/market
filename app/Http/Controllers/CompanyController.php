@@ -28,7 +28,9 @@ class CompanyController extends Controller
     {
         $recentPosts = $company->posts()->latest()->paginate(5);
 
-        return view('pages.companies.show', compact('company', 'recentPosts'));
+        $reportTypes = $company->reportTypes()->get();
+
+        return view('pages.companies.show', compact('company', 'recentPosts', 'reportTypes'));
     }
 
     /**

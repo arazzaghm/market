@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use App\Models\ReportType;
 
-trait ReportableTrait
+trait Reportable
 {
     /**
      * Report types.

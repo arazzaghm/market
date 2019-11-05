@@ -54,22 +54,13 @@ class Report extends Model
     }
 
     /**
-     * Checks if report is about post.
+     * Checks if model_type == $model.
      *
+     * @param $model
      * @return bool
      */
-    public function subjectIsPost(): bool
+    public function checkIfModelIs(string $model): bool
     {
-        return $this->model()->getTable() == 'posts';
-    }
-
-    /**
-     * Checks if report is about user.
-     *
-     * @return bool
-     */
-    public function subjectIsUser(): bool
-    {
-        return $this->model()->getTable() == 'users';
+        return $model == $this->getFormattedModelType();
     }
 }

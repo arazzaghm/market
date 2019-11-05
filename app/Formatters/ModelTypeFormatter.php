@@ -2,6 +2,8 @@
 
 namespace App\Formatters;
 
+use App\Interfaces\Formatter;
+
 class ModelTypeFormatter implements Formatter
 {
     private $modelType;

@@ -4,7 +4,8 @@ namespace App\Models;
 
 use App\Classes\Role;
 use App\Formatters\UserNameFormatter;
-use App\Traits\ReportableTrait;
+use App\Interfaces\HasReports;
+use App\Traits\Reportable;
 use Cog\Contracts\Ban\Bannable as BannableContract;
 use Cog\Laravel\Ban\Traits\Bannable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -17,9 +18,9 @@ use phpDocumentor\Reflection\Types\Self_;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class User extends Authenticatable implements HasMedia, BannableContract
+class User extends Authenticatable implements HasMedia, BannableContract, HasReports
 {
-    use Notifiable, HasMediaTrait, Bannable, ReportableTrait;
+    use Notifiable, HasMediaTrait, Bannable, Reportable;
 
     /**
      * The attributes that are mass assignable.

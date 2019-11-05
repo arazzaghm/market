@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Formatters\DateFormatter;
+use App\Interfaces\HasReports;
 use App\Traits\FormatCreatedAdDateTrait;
-use App\Traits\ReportableTrait;
+use App\Traits\Reportable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,9 +17,9 @@ use Spatie\MediaLibrary\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Post extends Model implements HasMedia
+class Post extends Model implements HasMedia, HasReports
 {
-    use SoftDeletes, HasSlug, HasMediaTrait, ReportableTrait, FormatCreatedAdDateTrait;
+    use SoftDeletes, HasSlug, HasMediaTrait, Reportable, FormatCreatedAdDateTrait;
 
     const STATUS_VISIBLE = 1;
     const STATUS_ARCHIVED = 2;

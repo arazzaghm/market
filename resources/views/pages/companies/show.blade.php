@@ -11,8 +11,10 @@
                     <img src="{{$company->getFirstMediaUrl('logo')}}" alt="{{$company->name}}">
                 </div>
                 <div class="col-md-8">
-                    <p><i class="fa fa-inbox"></i>@auth {{$company->email}} @else Log in or register to view the credentials @endauth</p>
-                    <p><i class="fa fa-phone"></i> @auth {{$company->getFormattedPhoneNumber()}} @else Log in or register to view the
+                    <p><i class="fa fa-inbox"></i>@auth {{$company->email}} @else Log in or register to view the
+                        credentials @endauth</p>
+                    <p><i class="fa fa-phone"></i> @auth {{$company->getFormattedPhoneNumber()}} @else Log in or
+                        register to view the
                         credentials @endauth</p>
                     <p>{{$company->description}}</p>
                     <p>
@@ -20,6 +22,9 @@
                         <a href="{{route('users.show', ['user' => $company->user])}}">
                             {{$company->user->name}}
                         </a>
+                    </p>
+                    <p>
+                        @include('partials.buttons.report-button')
                     </p>
                 </div>
             </div>
@@ -32,14 +37,19 @@
                                 <h5 class="card-title">{{$post->title}}</h5>
                                 <p class="card-text">{{$post->description}}</p>
                                 <p class="card-text">{{$post->price}} {{$post->currency->name}}</p>
-                                <a href="{{route('posts.show', ['post' => $post, 'category' => $post->category])}}" class="btn btn-primary">Show</a>
+                                <a href="{{route('posts.show', ['post' => $post, 'category' => $post->category])}}"
+                                   class="btn btn-primary">Show</a>
                             </div>
                         </div>
                     @empty
-                    <div class="alert alert-primary">Sorry, this company has no posts yet.</div>
+                        <div class="alert alert-primary">Sorry, this company has no posts yet.</div>
                     @endforelse
                 </div>
             </div>
         </div>
     </div>
+
+    @auth
+        @include('partials.modals.report-modal', ['model' => $company])
+    @endauth
 @endsection

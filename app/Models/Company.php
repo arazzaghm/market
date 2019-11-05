@@ -3,17 +3,18 @@
 namespace App\Models;
 
 use App\Formatters\PhoneNumberFormatter;
+use App\Interfaces\HasReports;
 use App\Traits\FormatCreatedAdDateTrait;
-use App\Traits\ReportableTrait;
+use App\Traits\Reportable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Company extends Model implements HasMedia
+class Company extends Model implements HasMedia, HasReports
 {
-    use FormatCreatedAdDateTrait, HasMediaTrait;
+    use FormatCreatedAdDateTrait, HasMediaTrait, Reportable;
 
     protected $fillable = ['name', 'email', 'phone', 'description'];
 

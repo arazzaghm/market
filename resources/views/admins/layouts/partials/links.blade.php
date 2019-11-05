@@ -24,7 +24,7 @@
     <li>
         <a href="{{ route('admin.reports.index') }}">
             <i class="material-icons">report</i>
-            <span>Reports</span><span class="badge bg-red white-text">@notViewedReports Unread</span>
+            <span>Reports</span><span class="badge bg-red white-text">{{$totalNotViewedReports}} Unread</span>
         </a>
     </li>
 
@@ -40,7 +40,7 @@
             <i class="material-icons">
             question_answer
             </i>
-            <span>Users questions</span><span class="badge bg-red white-text">@openedQuestions opened</span>
+            <span>Users questions</span><span class="badge bg-red white-text">{{$totalOpenedQuestions}} opened</span>
         </a>
     </li>
 

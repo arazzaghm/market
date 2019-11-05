@@ -50,8 +50,8 @@ class Question extends Model
     }
 
     /**
-
-    /**
+     *
+     * /**
      * Checks if question is opened.
      *
      * @return bool
@@ -73,10 +73,21 @@ class Question extends Model
 
     /**
      * Checks if question is closed.
+     *
      * @return bool
      */
     public function close()
     {
         return $this->update(['status' => self::STATUS_CLOSED]);
+    }
+
+    /**
+     * Counts opened questions.
+     *
+     * @return int
+     */
+    public static function countOpened(): int
+    {
+        return self::where('status', self::STATUS_OPENED)->count();
     }
 }

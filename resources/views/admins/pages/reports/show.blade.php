@@ -14,17 +14,20 @@
                     <p><b>Description:</b> {{$report->description}}</p>
                     <p><b>Reported at:</b> {{$report->formatCreatedAtDate()}}</p>
                     <p><b>Reported object: </b>
-                        @if($report->subjectIsPost())
+                        @if($report->checkIfModelIs('Post'))
                             Post <br>
                             <a class="btn btn-success"
                                href="{{route('posts.show', ['category' => $model->category, 'post' => $model])}}">Show</a>
-                        @else
+                        @elseif($report->checkIfModelIs('User'))
                             User <br>
                             <a class="btn btn-success" href="{{route('users.show', ['user' => $model])}}">Show</a>
+                        @elseif($report->checkIfModelIs('Company'))
+                            Company <br>
+                            <a class="btn btn-success" href="{{route('companies.show', ['company' => $model])}}">Show</a>
                         @endif
                     </p>
                     <p>
-                       <b> Make unread:</b>
+                        <b> Make unread:</b>
                     </p>
                     <form action="{{route('admin.reports.update', $report)}}" method="POST">
                         @method('PATCH')

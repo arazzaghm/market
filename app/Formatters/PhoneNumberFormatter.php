@@ -2,6 +2,8 @@
 
 namespace App\Formatters;
 
+use App\Interfaces\Formatter;
+
 class PhoneNumberFormatter implements Formatter
 {
     private $phoneNumber;

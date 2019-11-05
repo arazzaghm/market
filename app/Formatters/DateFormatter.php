@@ -2,6 +2,7 @@
 
 namespace App\Formatters;
 
+use App\Interfaces\Formatter;
 use Carbon\Carbon;
 
 class DateFormatter implements Formatter

@@ -29,14 +29,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::directive('notViewedReports', function () {
-            return Report::countNotViewed();
+        View::composer('*', function ($view) {
+            $view->with('totalNotViewedReports', Report::countNotViewed());
         });
-
-        Blade::directive('openedQuestions', function () {
-            return Question::where('status', Question::STATUS_OPENED)->count();
+        View::composer('*', function ($view) {
+            $view->with('totalOpenedQuestions', Question::countOpened());
         });
-
 
         View::composer('*', function ($view) {
             $view->with('authHasNewAnswers', QuestionAnswer::checkIfAuthHasNewAnswers());
