@@ -243,7 +243,7 @@ class Post extends Model implements HasMedia, HasReports
     }
 
     /**
-     *
+     * Archives the post.
      */
     public function archive()
     {

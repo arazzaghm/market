@@ -51,7 +51,8 @@
             @endcan
             <div class="card mt-4">
                 <div class="d-flex justify-content-center">
-                    <img class="card-img-top {{$post->isArchived() ? 'grayscale' : ''}}" src="{{ $media }}" style="width: 50%; height: 50%;">
+                    <img class="card-img-top {{$post->isArchived() ? 'grayscale' : ''}}" src="{{ $media }}"
+                         style="width: 50%; height: 50%;">
                 </div>
                 <div class="card-body">
                     <h3 class="card-title">{{$post->title}}</h3>
@@ -95,26 +96,30 @@
                     @endforelse
                     {{$comments->links()}}
                     <hr>
-                    <form @auth action="{{route('comments.store', ['post' => $post])}}" method="POST" @endauth>
-                        @auth
-                            @csrf
-                        @endauth
-                        <div class="form-group">
-                            <label for="comment">Comment</label>
-                            <textarea class="form-control" id="comment" placeholder="Your comment" @auth name="text"
-                                      @endauth
-                                      required @guest {{'disabled'}} @endguest></textarea>
-                        </div>
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="anonymous"
-                                   @auth name="anonymous" @endauth>
+                    @unless($post->isArchived())
+                        <form @auth action="{{route('comments.store', ['post' => $post])}}" method="POST" @endauth>
                             @auth
-                                <label class="custom-control-label" for="anonymous">Anonymous comment</label>
+                                @csrf
                             @endauth
-                        </div>
-                        <button type="submit" class="btn btn-success" @guest {{'disabled'}} @endguest>Leave a Review
-                        </button>
-                    </form>
+                            <div class="form-group">
+                                <label for="comment">Comment</label>
+                                <textarea class="form-control" id="comment" placeholder="Your comment" @auth name="text"
+                                          @endauth
+                                          required @guest {{'disabled'}} @endguest></textarea>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="anonymous"
+                                       @auth name="anonymous" @endauth>
+                                @auth
+                                    <label class="custom-control-label" for="anonymous">Anonymous comment</label>
+                                @endauth
+                            </div>
+                            <button type="submit" class="btn btn-success" @guest {{'disabled'}} @endguest>Leave a Review
+                            </button>
+                        </form>
+                    @else
+                        Sorry, you can`t comment archived post.
+                    @endunless
                 </div>
             </div>
             <!-- /.card -->
