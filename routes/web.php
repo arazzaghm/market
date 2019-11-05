@@ -74,38 +74,48 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::get('/companies', 'CompanyController@index')->name('companies.index');
 });
 
+Route::group(['middleware' => ['auth'], 'as' => 'posts.'], function () {
+    Route::get('/posts/create', 'PostController@create')->name('create');
+    Route::post('/posts/store/{company}', 'PostController@store')->name('store');
+    Route::patch('/posts/update/{post}', 'PostController@update')->name('update');
+    Route::delete('/posts/destroy/{post}', 'PostController@destroy')->name('destroy');
+    Route::post('/posts/hide/{post}', 'PostController@hide')->name('hide');
+    Route::post('/posts/archive/{post}', 'PostController@archive')->name('archive');
+});
+
+Route::group(['middleware' => ['auth'], 'as' => 'bookmarks.'], function () {
+    Route::get('/bookmarks', 'BookmarkController@index')->name('index');
+    Route::post('/post/{post}/bookmark/store', 'BookmarkController@store')->name('store');
+    Route::delete('/post/{post}/bookmark/destroy', 'BookmarkController@destroy')->name('destroy');
+});
+
+Route::group(['middleware' => ['auth'], 'as' => 'companies.'], function () {
+    Route::post('/companies/store', 'CompanyController@store')->name('store');
+    Route::get('/companies/create', 'CompanyController@create')->name('create');
+});
+
+Route::group(['middleware' => ['auth'], 'as' => 'questions.'], function () {
+    Route::get('/my-questions', 'QuestionController@index')->name('index');
+    Route::post('/questions/store', 'QuestionController@store')->name('store');
+    Route::get('/my-questions/{question}', 'QuestionController@show')->name('show');
+});
+
+Route::group(['middleware' => ['auth'], 'as' => 'settings.'], function () {
+    Route::get('/settings/', 'SettingsController@index');
+    Route::get('/settings/my-information', 'SettingsController@index')->name('index');
+    Route::get('/my-statistics', 'SettingsController@statistics')->name('statistics');
+});
+
 Route::group(['middleware' => ['auth']], function () {
     Route::patch('/users/update/{user}', 'UserController@update')->name('users.update');
+
     Route::post('/users/avatar/{user}/change', 'AvatarController@store')->name('avatar.store');
-
-    Route::get('/posts/create', 'PostController@create')->name('posts.create');
-    Route::post('/posts/store/{company}', 'PostController@store')->name('posts.store');
-    Route::patch('/posts/update/{post}', 'PostController@update')->name('posts.update');
-    Route::delete('/posts/destroy/{post}', 'PostController@destroy')->name('posts.destroy');
-    Route::post('/posts/hide/{post}', 'PostController@hide')->name('posts.hide');
-    Route::post('/posts/archive/{post}', 'PostController@archive')->name('posts.archive');
-
-    Route::get('/bookmarks', 'BookmarkController@index')->name('bookmarks.index');
-
-    Route::post('/post/{post}/bookmark/store', 'BookmarkController@store')->name('bookmarks.store');
-    Route::delete('/post/{post}/bookmark/destroy', 'BookmarkController@destroy')->name('bookmarks.destroy');
 
     Route::post('/posts/{post}/picture/destroy', 'PostPictureController@destroy')->name('post-pictures.destroy');
 
     Route::post('/comment/store/{post}', 'CommentController@store')->name('comments.store');
 
     Route::post('/reports/store/{model}', 'ReportController@store')->name('reports.store');
-
-    Route::get('/settings/', 'SettingsController@index');
-    Route::get('/settings/my-information', 'SettingsController@index')->name('settings.index');
-    Route::get('/my-statistics', 'SettingsController@statistics')->name('settings.statistics');
-
-    Route::get('/my-questions', 'QuestionController@index')->name('questions.index');
-    Route::post('/questions/store', 'QuestionController@store')->name('questions.store');
-    Route::get('/my-questions/{question}', 'QuestionController@show')->name('questions.show');
-
-    Route::post('/companies/store', 'CompanyController@store')->name('companies.store');
-    Route::get('/companies/create', 'CompanyController@create')->name('companies.create');
 });
 
 Route::group(['middleware' => ['auth', 'hasCompany'], 'as' => 'my-company.'], function () {
