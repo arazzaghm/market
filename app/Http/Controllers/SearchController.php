@@ -14,7 +14,7 @@ class SearchController extends Controller
         }
         $posts = Post::where('title', 'like', '%' . $request->title . '%')
             ->where('status', Post::STATUS_VISIBLE)
-            ->get();
+            ->paginate(10);
 
         return view('pages.posts.index', compact('posts'));
     }

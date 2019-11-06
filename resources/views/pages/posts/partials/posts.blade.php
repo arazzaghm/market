@@ -17,7 +17,7 @@
                                 <h5 class="card-title">{{$post->title}}</h5>
                                 <p class="card-text">{{$post->description}}</p>
                                 <p class="card-text">{{$post->price}} {{$post->currency->name}} </p>
-                                <p class="card-text">{{$post->category->icon_name}}</p>
+                                <p class="card-text"><i class="fa {{$post->category->getFaIconName()}}"></i> {{$post->category->icon_name}}</p>
                                 @if($post->isArchived())
                                     <p class="card-text text-danger">Achieved</p>
                                 @endif

@@ -12,7 +12,7 @@
                         <form action="{{route('avatar.store', ['user' => $user])}}" method="post"
                               enctype="multipart/form-data">
                             @csrf
-                            <div class="file btn btn-lg btn-success">
+                            <div class="file btn btn-lg btn-primary">
                                 Change Photo
                                 <input type="file" name="avatar" onchange="this.form.submit();">
                             </div>
