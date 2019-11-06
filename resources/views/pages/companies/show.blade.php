@@ -7,10 +7,10 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-lg-4 col-md-12">
                     <img src="{{$company->getFirstMediaUrl('logo')}}" alt="{{$company->name}}">
                 </div>
-                <div class="col-md-8">
+                <div class="col-lg-8 col-md-12">
                     <p><i class="fa fa-inbox"></i>@auth {{$company->email}} @else Log in or register to view the
                         credentials @endauth</p>
                     <p><i class="fa fa-phone"></i> @auth {{$company->getFormattedPhoneNumber()}} @else Log in or
@@ -23,9 +23,11 @@
                             {{$company->user->name}}
                         </a>
                     </p>
-                    <p>
-                        @include('partials.buttons.report-button')
-                    </p>
+                    @auth
+                        <p>
+                            @include('partials.buttons.report-button')
+                        </p>
+                    @endauth
                 </div>
             </div>
             <div class="card-footer">

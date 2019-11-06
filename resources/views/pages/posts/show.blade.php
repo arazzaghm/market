@@ -55,27 +55,40 @@
                          style="width: 50%; height: 50%;">
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">{{$post->title}}</h3>
-                    <h4>{{$post->price}} {{$post->currency->name}}</h4>
-                    <h4>Category: <span
-                            class="fa {{$post->category->getFaIconName()}}"></span> {{$post->category->name}}</h4>
-                    <p class="card-text">{{$post->description}}</p>
-                    <p><i class="fa fa-eye"></i> {{$post->viewed_times}}</p>
-                    @auth
-                        <div class="row">
-                            <div class="col-0 ml-2">
-                                <form action="{{route('bookmarks.store', ['post' => $post])}}" method="POST">
-                                    @csrf
-                                    <button class="btn {{$post->isInBookmarks() ? 'btn-dark' : 'btn-outline-dark'}}">
-                                        <i class="fa fa-bookmark"></i>
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="col-0 ml-1">
-                                @include('partials.buttons.report-button')
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="card-title">{{$post->title}}</h3>
+                            <h4>{{$post->price}} {{$post->currency->name}}</h4>
+                            <h4>Category: <span
+                                    class="fa {{$post->category->getFaIconName()}}"></span> {{$post->category->name}}
+                            </h4>
+                            <p class="card-text">{{$post->description}}</p>
+                            <p><i class="fa fa-eye"></i> {{$post->viewed_times}}</p>
+                            @auth
+                                <div class="row">
+                                    <div class="col-0 ml-2">
+                                        <form action="{{route('bookmarks.store', ['post' => $post])}}" method="POST">
+                                            @csrf
+                                            <button
+                                                class="btn {{$post->isInBookmarks() ? 'btn-dark' : 'btn-outline-dark'}}">
+                                                <i class="fa fa-bookmark"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-0 ml-1">
+                                        @include('partials.buttons.report-button')
+                                    </div>
+                                </div>
+                            @endauth
                         </div>
-                    @endauth
+                        <div class="col-md-6">
+                            <p class="card-text">
+                                <a href="{{route('companies.show', ['company' =>$post->company ])}}">
+                                    <img src="{{$post->company->getLogoUrl()}}" alt="">
+                                </a>
+                            </p>
+                        </div>
+                    </div>
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                     4.0 stars
                 </div>
@@ -114,7 +127,8 @@
                                     <label class="custom-control-label" for="anonymous">Anonymous comment</label>
                                 @endauth
                             </div>
-                            <button type="submit" class="btn btn-success" @guest {{'disabled'}} @endguest>Leave a Review
+                            <button type="submit" class="btn btn-success" @guest {{'disabled'}} @endguest>
+                                Leave a Review
                             </button>
                         </form>
                     @else
