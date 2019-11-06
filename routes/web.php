@@ -123,6 +123,7 @@ Route::group(['middleware' => ['auth', 'hasCompany'], 'as' => 'my-company.'], fu
     Route::get('/my-company/show', 'MyCompanyController@show')->name('show');
     Route::delete('/my-company/logo', 'MyCompanyLogoController@destroy')->name('logo.destroy');
     Route::patch('/my-company/update', 'MyCompanyController@update')->name('update');
+    Route::get('/my-company/posts', 'MyCompanyPostController@index')->name('posts.index');
 });
 
 Route::get('/companies/{company}', 'CompanyController@show')->name('companies.show');

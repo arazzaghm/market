@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Formatters\DateFormatter;
+use App\Formatters\PriceFormatter;
 use App\Interfaces\HasReports;
 use App\Traits\FormatCreatedAdDateTrait;
 use App\Traits\Reportable;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
@@ -248,5 +250,29 @@ class Post extends Model implements HasMedia, HasReports
     public function archive()
     {
         $this->update(['status' => self::STATUS_ARCHIVED]);
+    }
+
+    /**
+     * Gets limited string
+     *
+     * @param $column
+     * @param int $length
+     * @return string
+     */
+    public function getLimitedColumn(string $column, int $length = 20): string
+    {
+        return Str::limit($column, $length);
+    }
+
+    /**
+     * Gets formatted post price.
+     *
+     * @return string
+     */
+    public function getFormattedPrice(): string
+    {
+        $formattedPrice = new PriceFormatter($this->price, $this->currency->name);
+
+        return $formattedPrice->format();
     }
 }

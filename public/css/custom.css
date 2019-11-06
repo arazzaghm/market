@@ -170,3 +170,7 @@ section .section-title {
     filter: grayscale(100%);
 }
 
+.square-card {
+    border-radius: 0px;
+}
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Company\UpdateCompanyRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +13,17 @@ class MyCompanyController extends Controller
     {
         $company = Auth::user()->company;
 
-        return view('pages.my-company.index', ['company' => $company]);
+        $postsQuery  = $company->posts();
+
+        $totalPosts = $postsQuery->count();
+
+        $todayPosts = $postsQuery->where('created_at', '>=', Carbon::now()->startOfDay())->count();
+
+        return view('pages.my-company.index', compact(
+            'company',
+            'totalPosts',
+            'todayPosts'
+        ));
     }
 
     public function show()
