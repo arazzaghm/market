@@ -11,6 +11,6 @@ class PopularQuestionController extends Controller
     {
         $popularQuestions = PopularQuestion::paginate(10);
 
-        return view('pages.popularQuestions.index', compact('popularQuestions'));
+        return view('pages.popular-questions.index', compact('popularQuestions'));
     }
 }

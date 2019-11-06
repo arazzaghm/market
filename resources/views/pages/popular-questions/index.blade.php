@@ -6,7 +6,7 @@
     <div class="row">
         @foreach($popularQuestions as $popularQuestion)
             @if($loop->even)
-                <div class="col">
+                <div class="col-4 mt-2">
                     <div class="accordion" id="accordionExample">
                         <div class="card border-bottom">
                             <div class="card-header" id="heading{{$popularQuestion->id}}">
@@ -35,7 +35,7 @@
 
         @foreach($popularQuestions as $popularQuestion)
             @if($loop->odd)
-                <div class="col">
+                <div class="col-4 mt-2">
                     <div class="accordion" id="accordionExample">
                         <div class="card border-bottom">
                             <div class="card-header" id="heading{{$popularQuestion->id}}">
