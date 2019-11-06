@@ -15,20 +15,13 @@
             <!-- Right Side Of Navbar -->
 
             <ul class="navbar-nav mr-auto">
-                <form action="{{route('search')}}">
-                    <div class="form-group row mt-3">
-                        <div class="col-sm-10 mt-2">
-                            <input type="text" class="form-control form-control-sm" id="search" name="title"
-                                   placeholder="Search">
-                        </div>
-                        <div class="col-sm-1 ">
-                            <button class="btn btn-success btn-sm mt-sm-2">Search</button>
-                        </div>
-                    </div>
-                </form>
             </ul>
 
             <ul class="navbar-nav ml-auto">
+                <form class="form-inline mt-2 mt-md-0" action="{{route('search')}}">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="title">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
