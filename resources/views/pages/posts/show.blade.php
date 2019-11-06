@@ -58,7 +58,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h3 class="card-title">{{$post->title}}</h3>
-                            <h4>{{$post->price}} {{$post->currency->name}}</h4>
+                            <h4>{{$post->getFormattedPrice()}}</h4>
                             <h4>Category: <span
                                     class="fa {{$post->category->getFaIconName()}}"></span> {{$post->category->name}}
                             </h4>
