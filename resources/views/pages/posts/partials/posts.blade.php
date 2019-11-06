@@ -8,9 +8,6 @@
                     'category' => $post->category,
                     'post'=> $post
                     ])}}">
-                            <img src="{{$post->getPictureUrl()}}"
-                                 class="card-img-top {{$post->isArchived() ? 'grayscale' : ''}} "
-                                 alt="{{$post->title}}">
                         </a>
                         <div class="col-md-8">
                             <div class="card-body">

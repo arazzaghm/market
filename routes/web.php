@@ -129,3 +129,5 @@ Route::group(['middleware' => ['auth', 'hasCompany'], 'as' => 'my-company.'], fu
 Route::get('/companies/{company}', 'CompanyController@show')->name('companies.show');
 
 Route::get('/posts/{category?}', 'PostController@index')->name('posts.index');
+
+Route::get('lang/{locale}', 'LanguageController@set')->name('language.set');

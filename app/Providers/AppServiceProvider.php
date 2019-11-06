@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Assets\Language;
 use App\Models\Question;
 use App\Models\QuestionAnswer;
 use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -32,9 +34,19 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $view->with('totalNotViewedReports', Report::countNotViewed());
         });
+
         View::composer('*', function ($view) {
             $view->with('totalOpenedQuestions', Question::countOpened());
         });
+
+        View::composer('*', function ($view) {
+            $view->with('allLanguages', Language::get());
+        });
+
+        View::composer('*', function ($view) {
+            $view->with('currentLanguage', Language::getCurrent());
+        });
+
 
         View::composer('*', function ($view) {
             $view->with('authHasNewAnswers', QuestionAnswer::checkIfAuthHasNewAnswers());

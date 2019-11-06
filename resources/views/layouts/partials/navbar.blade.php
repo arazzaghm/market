@@ -18,10 +18,33 @@
             </ul>
 
             <ul class="navbar-nav ml-auto">
+
                 <form class="form-inline mt-2 mt-md-0" action="{{route('search')}}">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="title">
-                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"
+                           name="title">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">
+                        <i class="fa fa-search"></i> Search
+                    </button>
                 </form>
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <img src="{{\App\Assets\Language::getIconUrl($currentLanguage)}}">
+                        {{\App\Assets\Language::getName($currentLanguage)}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        @foreach($allLanguages as $key => $language)
+                            @unless($currentLanguage == $language)
+                                <a class="dropdown-item"
+                                   href="{{route('language.set', ['locale' => $language])}}">
+                                    <img src="{{\App\Assets\Language::getIconUrl($language)}}">
+                                    {{$key}}
+                                </a>
+                            @endunless
+                        @endforeach
+                    </div>
+                </li>
+
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">

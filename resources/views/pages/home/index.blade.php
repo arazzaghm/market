@@ -18,7 +18,8 @@
                                 </li>
                             </a>
                         @empty
-                            <div class="alert alert-secondary mb-auto">Sorry, there is no popular categories yet :(</div>
+                            <div class="alert alert-secondary mb-auto">Sorry, there is no popular categories yet :(
+                            </div>
                         @endforelse
                     </ul>
                 </div>

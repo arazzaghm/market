@@ -2,8 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Admin;
-use App\Http\Middleware\HasCompany;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -38,6 +36,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\UserActivity::class,
+            \App\Http\Middleware\Localization::class,
         ],
 
         'api' => [
@@ -54,9 +53,10 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'admin' => Admin::class,
-        'hasCompany' => HasCompany::class,
+        'admin' =>  \App\Http\Middleware\Admin::class,
+        'hasCompany' => \App\Http\Middleware\HasCompany::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'localization' => \App\Http\Middleware\Localization::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
