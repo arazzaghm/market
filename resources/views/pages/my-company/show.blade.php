@@ -27,7 +27,9 @@
                                         <button class="btn btn-danger"><i class="fa fa-trash"></i> Delete logo</button>
                                     </form>
                                 @endcan
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</button>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+                                    <i class="fa fa-edit"></i> Edit
+                                </button>
                             </div>
                         </div>
 
@@ -37,7 +39,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
