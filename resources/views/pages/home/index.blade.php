@@ -6,7 +6,7 @@
             <div class="col-md-4 col-12">
                 <div class="card">
                     <div class="card-header">
-                        Popular categories
+                        @lang('sentence.category.popularCategories')
                     </div>
                     <ul class="list-group">
                         @forelse($popularCategories as $category)
@@ -18,7 +18,8 @@
                                 </li>
                             </a>
                         @empty
-                            <div class="alert alert-secondary mb-auto">Sorry, there is no popular categories yet :(
+                            <div class="alert alert-secondary mb-auto">
+                                @lang('sentence.category.noPopularCategories') :(
                             </div>
                         @endforelse
                     </ul>

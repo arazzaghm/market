@@ -1,5 +1,10 @@
 <?php
 
 return [
-    'welcome' => 'Hello friend'
+    'welcome' => 'Hello friend',
+    'category' => [
+        'category' => 'category',
+        'popularCategories' => 'Popular categories',
+        'noPopularCategories' => 'No popular categories'
+    ],
 ];

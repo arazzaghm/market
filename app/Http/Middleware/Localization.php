@@ -21,8 +21,10 @@ class Localization
     {
         if (Session::has('locale') && in_array(Session::get('locale'), Language::get())) {
             App::setLocale(Session::get('locale'));
-        } else {
-            App::setLocale(Config::get('app.fallback_locale'));
+        }
+        if (Session::get('locale') == null) {
+            Session::put('locale', 'en');
+            App::setLocale('en');
         }
         return $next($request);
     }

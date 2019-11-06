@@ -20,10 +20,11 @@
             <ul class="navbar-nav ml-auto">
 
                 <form class="form-inline mt-2 mt-md-0" action="{{route('search')}}">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"
+                    <input class="form-control mr-sm-2" type="text" placeholder="@lang('navbar.search')"
+                           aria-label="Search"
                            name="title">
                     <button class="btn btn-success my-2 my-sm-0" type="submit">
-                        <i class="fa fa-search"></i> Search
+                        <i class="fa fa-search"></i> @lang('navbar.search')
                     </button>
                 </form>
                 <li class="nav-item dropdown">
@@ -49,14 +50,14 @@
                 @guest
                     <li class="nav-item">
                         <button type="button" class="btn nav-link" data-toggle="modal" data-target="#loginModal">
-                            {{ __('Login') }}
+                            @lang('navbar.login')
                         </button>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
                             <button type="button" class="btn nav-link" data-toggle="modal"
                                     data-target="#registerModal">
-                                {{ __('Register') }}
+                                @lang('navbar.register')
                             </button>
                         </li>
                     @endif
@@ -71,20 +72,20 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a href="{{route('users.show', ['user' => Auth::user()])}}" class="dropdown-item">
-                                <i class="fa fa-user"></i> My profile
+                                <i class="fa fa-user"></i> @lang('navbar.myProfile')
                             </a>
 
                             @if($authHasCompany)
                                 <a href="{{route('my-company.index')}}" class="dropdown-item">
-                                    <i class="fa fa-compass"></i> My company
+                                    <i class="fa fa-compass"></i> @lang('navbar.myCompany')
                                 </a>
                             @endif
                             <a href="{{route('bookmarks.index')}}" class="dropdown-item">
-                                <i class="fa fa-bookmark"></i> My bookmarks
+                                <i class="fa fa-bookmark"></i> @lang('navbar.myBookmarks')
                             </a>
 
                             <a href="{{route('settings.index')}}" class="dropdown-item">
-                                <i class="fa fa-cog"></i> My settings
+                                <i class="fa fa-cog"></i> @lang('navbar.mySettings')
                             </a>
 
                             <a href="{{route('questions.index')}}" class="dropdown-item">
@@ -93,13 +94,13 @@
                                 @else
                                     <i class="fa fa-question-circle"></i>
                                 @endif
-                                Help
+                                @lang('navbar.help')
                             </a>
 
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                <i class="fa fa-sign-out"></i> {{ __('Logout') }}
+                                <i class="fa fa-sign-out"></i> @lang('navbar.logout')
                             </a>
 
 
