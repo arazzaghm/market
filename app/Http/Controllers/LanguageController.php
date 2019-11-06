@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Assets\Language;
+use App\Classes\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;

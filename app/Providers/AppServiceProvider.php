@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Assets\Language;
+use App\Classes\Language;
 use App\Models\Question;
 use App\Models\QuestionAnswer;
 use App\Models\Report;

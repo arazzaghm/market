@@ -30,15 +30,15 @@
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        <img src="{{\App\Assets\Language::getIconUrl($currentLanguage)}}">
-                        {{\App\Assets\Language::getName($currentLanguage)}}
+                        <img src="{{\App\Classes\Language::getIconUrl($currentLanguage)}}">
+                        {{\App\Classes\Language::getName($currentLanguage)}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         @foreach($allLanguages as $key => $language)
                             @unless($currentLanguage == $language)
                                 <a class="dropdown-item"
                                    href="{{route('language.set', ['locale' => $language])}}">
-                                    <img src="{{\App\Assets\Language::getIconUrl($language)}}">
+                                    <img src="{{\App\Classes\Language::getIconUrl($language)}}">
                                     {{$key}}
                                 </a>
                             @endunless

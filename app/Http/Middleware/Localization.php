@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Assets\Language;
+use App\Classes\Language;
 use Closure;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\App;
