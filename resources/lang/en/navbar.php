@@ -9,5 +9,11 @@ return [
     'help' => 'Help',
     'logout' => 'Logout',
     'login' => 'Login',
-    'register' => 'Register'
+    'register' => 'Register',
+
+    'settingsSidebar' => [
+        'myStatistics' => 'My statistics',
+        'myInformation' => 'My information',
+        'support' => 'Support'
+    ]
 ];

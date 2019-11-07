@@ -9,5 +9,11 @@ return [
     'help' => 'Допомога',
     'logout' => 'Вийти',
     'login' => 'Увійти',
-    'register' => 'Зареєструватись'
+    'register' => 'Зареєструватись',
+
+    'settingsSidebar' => [
+        'myStatistics' => 'Моя статистика',
+        'myInformation' => 'Моя інформація',
+        'support' => 'Підтримка'
+    ]
 ];
