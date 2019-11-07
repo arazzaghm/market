@@ -13,6 +13,7 @@ use App\Models\Comment;
 use App\Models\Company;
 use App\Models\Currency;
 use App\Models\Post;
+use App\Services\PostService;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -23,6 +24,13 @@ use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
+    public $postService;
+
+    public function __construct()
+    {
+        $this->postService = new PostService();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +58,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',  new Post());
+        $this->authorize('create', new Post());
 
         $allCategories = Category::all();
 
@@ -69,13 +77,11 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request, Company $company)
     {
-        $this->authorize('create',  new Post());
+        $this->authorize('create', new Post());
 
         $post = $company->posts()->create($request->validated());
 
-        if ($request->hasFile('picture')) {
-            $post->addMedia($request->picture)->toMediaCollection('picture');
-        }
+        $this->postService->handlePostPhoto($post, $request->picture);
 
         \Mail::to($company->email)->send(
             new NewPostMail($post)
@@ -139,12 +145,7 @@ class PostController extends Controller
     {
         $post->update($request->validated());
 
-        if ($post->hasMedia('picture') && $request->hasFile('picture')) {
-            $post->getFirstMedia('picture')->delete();
-            $post->addMedia($request->picture)->toMediaCollection('picture');
-        } elseif ($request->hasFile('picture')) {
-            $post->addMedia($request->picture)->toMediaCollection('picture');
-        }
+        $this->postService->handleUploadedPhoto($post, $request->picture);
 
         return redirect()->route('posts.show', [
             'post' => $post,

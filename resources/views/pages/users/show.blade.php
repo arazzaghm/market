@@ -28,7 +28,7 @@
                     </h5>
                     @auth
                         <div class="col-0 ml-1">
-                           @include('partials.buttons.report-button')
+                            @include('partials.buttons.report-button')
                         </div>
                     @endauth
                     <p class="proile-rating">INFO: <span>SOME INFO HERE</span></p>
@@ -39,7 +39,8 @@
                         </li>
                         @if($user->hasCompany())
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('companies.show', ['company' => $user->company])}}">@lang('user.company')</a>
+                                <a class="nav-link"
+                                   href="{{route('companies.show', ['company' => $user->company])}}">@lang('user.company')</a>
                             </li>
                         @endif
                     </ul>
