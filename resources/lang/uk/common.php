@@ -6,5 +6,7 @@ return [
     'show' => 'Показати',
     'change' => 'Змінити',
     'optional' => 'Обов\'язково',
-    'myInformation' => 'Моя інформація'
+    'myInformation' => 'Моя інформація',
+    'edit' => 'Редагувати',
+    'here' => 'тут',
 ];

@@ -9,11 +9,11 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Published at</th>
-                    <th>Show</th>
+                    <th>@lang('post.columns.title')</th>
+                    <th>@lang('post.columns.description')</th>
+                    <th>@lang('post.columns.category')</th>
+                    <th>@lang('post.columns.publishedAt')</th>
+                    <th>@lang('common.show')</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,15 +29,15 @@
                             <a href="{{route('posts.show', ['post' => $post, 'category' => $post->category])}}" class="btn btn-sm btn-primary">
                                 <i class="fa fa-eye"></i>
                                 <br>
-                                Show post
+                                @lang('common.show')
                             </a>
                         </td>
                     </tr>
                 </tbody>
                 @empty
                     <div class="alert alert-primary">
-                        Your company has no posts yet. You can create the first one
-                        <a href="{{route('posts.create')}}">here</a>
+                         @lang('sentence.company.noPosts')
+                        <a href="{{route('posts.create')}}"> {{strtolower(trans('common.here'))}}</a>
                     </div>
                 @endforelse
             </table>

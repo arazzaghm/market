@@ -6,5 +6,7 @@ return [
     'show' => 'Show',
     'change' => 'Change',
     'optional' => 'Optional',
-    'myInformation' => 'My information'
+    'myInformation' => 'My information',
+    'edit' => 'Edit',
+    'here' => 'here',
 ];

@@ -3,28 +3,28 @@
 @section('content')
     <div class="row">
         @include('pages.my-company.partials.sidebar')
-        <div class="col-md-8">
-            <h1>Hello!</h1>
-            <h3>This is the main page of your company control panel!</h3>
-            <h4>You can check the statistic of your company here.</h4>
+        <div class="col-md-9">
+            <h1>@lang('sentence.hello')!</h1>
+            <h3>@lang('sentence.company.mainPage')!</h3>
+            <h4>@lang('sentence.company.checkStats').</h4>
             <div class="row">
                 <div class="col-4">
                     <div class="card square-card">
                         <div class="card-header">
-                            Company posts
+                            @lang('company.posts.posts')
                         </div>
                         <div class="card-body">
-                            Total posts: <b>{{$totalPosts}}</b>
+                            @lang('company.posts.total'): <b>{{$totalPosts}}</b>
                         </div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="card square-card">
                         <div class="card-header">
-                            Today posts
+                            @lang('company.posts.posts')
                         </div>
                         <div class="card-body">
-                            Today posts: <b>{{$todayPosts}}</b>
+                            @lang('company.posts.posts'): <b>{{$todayPosts}}</b>
                         </div>
                     </div>
                 </div>
