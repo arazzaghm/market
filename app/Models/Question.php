@@ -25,8 +25,8 @@ class Question extends Model
     ];
 
     private $statues = [
-        self::STATUS_OPENED => 'Opened',
-        self::STATUS_CLOSED => 'Closed',
+        self::STATUS_OPENED => 'opened',
+        self::STATUS_CLOSED => 'closed',
     ];
 
     /**

@@ -8,14 +8,14 @@
                 <div class="card-body">
                     <h5 class="card-title">{{$question->title}}</h5>
                     <p class="card-text"><small class="text-muted">
-                            Status: {{$question->getStatusAsString()}}</small>
+                            @lang('common.status'): @lang('question.' . $question->getStatusAsString())</small>
                     </p>
                     <p class="card-text">
                         {{$question->text}}
                     </p>
                     @if($question->isAnswered())
                         <hr>
-                        <h4>Answer from administrator:</h4>
+                        <h4>@lang('question.answer'):</h4>
                         <p class="card-text">{{$question->answer->text}}</p>
                     @endif
                 </div>
