@@ -146,6 +146,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => 'Name',
+        'email' => 'Email',
+        'currentPassword' => 'Current password',
+        'oldPassword' => 'Old password',
+        'newPassword' => 'New password'
+    ]
 
 ];
