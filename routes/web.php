@@ -13,6 +13,8 @@
 
 Auth::routes();
 
+Route::post('/logout', '\App\Http\Controllers\Auth\LogoutController@logout')->name('logout');
+
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
