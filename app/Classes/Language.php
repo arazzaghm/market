@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Assets;
+namespace App\Classes;
 
 use App\Formatters\IconPathFormatter;
 use Illuminate\Support\Facades\Session;
@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Session;
 class Language
 {
     const ENGLISH = 'English';
-    const UKRAINIAN = 'Ukrainian';
-    const RUSSIAN = 'Russian';
+    const UKRAINIAN = 'Українська';
+    const RUSSIAN = 'Русский';
 
     private static $languages = [
         self::ENGLISH => 'en',
