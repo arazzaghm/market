@@ -2,7 +2,7 @@
 
 namespace App\Classes;
 
-use App\Formatters\IconPathFormatter;
+use App\Formatters\FlagIconPathFormatter;
 use Illuminate\Support\Facades\Session;
 
 class Language
@@ -28,7 +28,7 @@ class Language
 
     public static function getIconUrl($locale): string
     {
-        $flag = new IconPathFormatter($locale);
+        $flag = new FlagIconPathFormatter($locale);
 
         return $flag->format();
     }

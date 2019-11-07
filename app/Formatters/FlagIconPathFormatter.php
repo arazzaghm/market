@@ -4,7 +4,7 @@ namespace App\Formatters;
 
 use App\Interfaces\Formatter;
 
-class IconPathFormatter implements Formatter
+class FlagIconPathFormatter implements Formatter
 {
     private $path = 'img/flags/';
     private $locale;
