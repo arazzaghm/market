@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
-    public $postService;
+    private $postService;
 
     public function __construct()
     {

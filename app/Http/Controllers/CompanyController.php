@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Company\CreateCompanyRequest;
 use App\Models\Company;
+use App\Services\CompanyService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -12,6 +13,13 @@ use Illuminate\View\View;
 
 class CompanyController extends Controller
 {
+    private $companyService;
+
+    public function __construct()
+    {
+        $this->companyService = new CompanyService();
+    }
+
     /**
      * Shows the form for creating the instance.
      *
@@ -43,6 +51,8 @@ class CompanyController extends Controller
         $data = $request->validated();
 
         $company = Auth::user()->company()->create($data);
+
+        $this->companyService->handleUploadedPhoto();
 
         if ($request->hasFile('logo')) {
             $company->addMedia($request->logo)->toMediaCollection('logo');

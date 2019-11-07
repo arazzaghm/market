@@ -3,16 +3,18 @@
 namespace App\Services;
 
 use App\Models\Post;
+use App\Traits\UploadPhotoTrait;
 
 class PostService
 {
+    use UploadPhotoTrait;
+
+    private $object;
+
     public function handleUploadedPhoto(Post $post, $photo)
     {
-        if ($post->hasMedia('picture') && isset($photo)) {
-            $post->getFirstMedia('picture')->delete();
-            $post->addMedia($photo)->toMediaCollection('picture');
-        } elseif (isset($photo)) {
-            $post->addMedia($photo)->toMediaCollection('picture');
-        }
+        $this->object = $post;
+
+        $this->upload($photo, 'picture');
     }
 }
