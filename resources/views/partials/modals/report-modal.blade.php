@@ -17,7 +17,7 @@
                         <label for="report_type_id">Reason</label>
                         <select name="type_id" id="report_type_id" class="form-control">
                             @foreach($reportTypes as $reportType)
-                                <option value="{{$reportType->id}}">{{$reportType->name}}</option>
+                                <option value="{{$reportType->id}}">{{$reportType->getNameByLocale()}}</option>
                             @endforeach
                         </select>
                         <label for="description">Description</label>
