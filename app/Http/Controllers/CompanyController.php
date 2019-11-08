@@ -52,11 +52,7 @@ class CompanyController extends Controller
 
         $company = Auth::user()->company()->create($data);
 
-        $this->companyService->handleUploadedPhoto();
-
-        if ($request->hasFile('logo')) {
-            $company->addMedia($request->logo)->toMediaCollection('logo');
-        }
+        $this->companyService->handleUploadedPhoto($company, $request->logo);
 
         return redirect()->route('companies.show', ['company' => $company]);
     }

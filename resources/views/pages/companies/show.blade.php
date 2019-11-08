@@ -8,7 +8,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-4 col-md-12">
-                    <img src="{{$company->getFirstMediaUrl('logo')}}" alt="{{$company->name}}">
+                    <img src="{{$company->getLogoUrl()}}" alt="{{$company->name}}">
                 </div>
                 <div class="col-lg-8 col-md-12">
                     <p><i class="fa fa-inbox"></i>@auth {{$company->email}} @else Log in or register to view the
