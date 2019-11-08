@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'myCompany' => 'My company',
+
     'settings' => 'Company settings',
 
     'posts' => [
@@ -16,5 +18,13 @@ return [
 
     'logo' => [
         'delete' => 'Delete logo'
+    ],
+
+    'form' => [
+        'name' => 'Name',
+        'email' => 'Email',
+        'number' => 'Phone number',
+        'logo' => 'Logo',
+        'description' => 'Description',
     ],
 ];

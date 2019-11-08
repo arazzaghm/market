@@ -182,6 +182,6 @@ return [
         'size' => 'Розмір',
         'currentPassword' => 'Поточний пароль',
         'oldPassword' => 'Старий пароль',
-        'newPassword' => 'Новий пароль'
+        'newPassword' => 'Новий пароль',
     ],
 ];

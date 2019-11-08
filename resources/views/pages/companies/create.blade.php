@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2>Create own company.</h2>
-    <p>You can create your own company and place offers on our site. You just need to fill the form and wait for approval!</p>
+    <h2>@lang('sentence.company.create')</h2>
+    <p>@lang('sentence.company.createDescription')</p>
     <div class="card">
         <div class="card-header">
-            New company form
+            @lang('sentence.company.create')
         </div>
         <div class="card-body">
             <form action="{{route('companies.store')}}" method="POST" enctype="multipart/form-data">

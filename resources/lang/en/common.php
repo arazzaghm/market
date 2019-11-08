@@ -3,6 +3,7 @@ return [
     'status' => 'Status',
     'createdAt' => 'Created at',
     'new' => 'New',
+    'create' => 'Create',
     'show' => 'Show',
     'change' => 'Change',
     'optional' => 'Optional',
