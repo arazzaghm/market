@@ -165,12 +165,13 @@ class Post extends Model implements HasMedia, HasReports
     /**
      * Gets picture URL.
      *
+     * @param string $size
      * @return string
      */
-    public function getPictureUrl(): string
+    public function getPictureUrl($size = 'small'): string
     {
         return $this->getFirstMedia('picture')
-            ? $this->getFirstMediaUrl('picture')
+            ? $this->getFirstMediaUrl('picture', $size)
             : asset('img/default_post_picture.jpg');
     }
 

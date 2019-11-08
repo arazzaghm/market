@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
 class Company extends Model implements HasMedia, HasReports
 {
@@ -50,10 +51,18 @@ class Company extends Model implements HasMedia, HasReports
         return $phoneNumber->format();
     }
 
-    public function getLogoUrl()
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('small')
+            ->fit('crop', 300, 300);
+        $this->addMediaConversion('medium')
+            ->width(600);
+    }
+
+    public function getLogoUrl($size = 'small')
     {
         return $this->getFirstMedia('logo')
-            ? $this->getFirstMediaUrl('logo')
+            ? $this->getFirstMediaUrl('logo', 'small')
             : asset('img/default_post_picture.jpg');
     }
 }

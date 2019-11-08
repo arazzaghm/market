@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Cache;
 use phpDocumentor\Reflection\Types\Self_;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
 class User extends Authenticatable implements HasMedia, BannableContract, HasReports
 {
@@ -186,12 +187,13 @@ class User extends Authenticatable implements HasMedia, BannableContract, HasRep
     /**
      * Gets avatar URL.
      *
+     * @param string $size
      * @return string
      */
-    public function getAvatarUrl(): string
+    public function getAvatarUrl($size = 'small'): string
     {
         return $this->getFirstMedia('avatar')
-            ? $this->getFirstMediaUrl('avatar')
+            ? $this->getFirstMediaUrl('avatar', $size)
             : asset('img/default_avatar.png');
     }
 
@@ -223,5 +225,13 @@ class User extends Authenticatable implements HasMedia, BannableContract, HasRep
     public function hasCompany(): bool
     {
         return $this->company()->exists();
+    }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('small')
+            ->fit('crop', 300, 300);
+        $this->addMediaConversion('medium')
+            ->width(600);
     }
 }
