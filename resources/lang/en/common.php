@@ -9,4 +9,6 @@ return [
     'myInformation' => 'My information',
     'edit' => 'Edit',
     'here' => 'here',
+    'save' => 'Save',
+    'close' => 'Close',
 ];
