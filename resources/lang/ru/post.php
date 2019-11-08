@@ -6,5 +6,6 @@ return [
         'description' => 'Описание',
         'category' => 'Категория',
         'publishedAt' => 'Опубликовано',
+        'price' => 'Цена',
     ]
 ];

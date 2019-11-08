@@ -24,9 +24,13 @@
                                     <form action="{{route('my-company.logo.destroy')}}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger"><i class="fa fa-trash"></i> @lang('company.logo.delete')</button>
+                                        <button class="btn btn-danger"><i
+                                                class="fa fa-trash"></i> @lang('company.logo.delete')</button>
                                     </form>
                                 @endcan
+                                @error('logo')
+                                    <p class="text-danger mt-2">{{$message}}</p>
+                                @enderror
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#editModal">
                                     <i class="fa fa-edit"></i> @lang('common.edit')
                                 </button>
