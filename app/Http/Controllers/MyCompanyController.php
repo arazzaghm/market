@@ -3,17 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Company\UpdateCompanyRequest;
+use App\Services\CompanyService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MyCompanyController extends Controller
 {
+    private $companyService;
+
+    public function __construct()
+    {
+        $this->companyService = new CompanyService();
+    }
+
     public function index()
     {
         $company = Auth::user()->company;
 
-        $postsQuery  = $company->posts();
+        $postsQuery = $company->posts();
 
         $totalPosts = $postsQuery->count();
 
@@ -40,14 +48,7 @@ class MyCompanyController extends Controller
 
         Auth::user()->company->update($data);
 
-        $company = Auth::user()->company;
-
-        if ($request->hasFile('logo') && $company->hasMedia('logo')) {
-            $company->getFirstMedia('logo')->delete();
-            $company->addMedia($request->logo)->toMediaCollection('logo');
-        } elseif ($request->hasFile('logo')) {
-            $company->addMedia($request->logo)->toMediaCollection('logo');
-        }
+        $this->companyService->handleUploadedPhoto(Auth::user()->company, $request->logo);
 
         return back();
     }

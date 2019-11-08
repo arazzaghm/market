@@ -13,6 +13,7 @@
                     <th>@lang('post.columns.description')</th>
                     <th>@lang('post.columns.category')</th>
                     <th>@lang('post.columns.publishedAt')</th>
+                    <th>@lang('post.columns.price')</th>
                     <th>@lang('common.show')</th>
                 </tr>
                 </thead>
