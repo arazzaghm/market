@@ -14,7 +14,7 @@
                                class="text-decoration-none text-dark">
                                 <li class="list-group-item">
                                     <i class="fa {{$category->getFaIconName()}}"></i>
-                                    {{$category->name}}
+                                    {{$category->getNameByLocale()}}
                                 </li>
                             </a>
                         @empty

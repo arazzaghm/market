@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Formatters\IconNameFormatter;
+use App\Returners\NameReturner;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\HasSlug;
@@ -12,7 +13,14 @@ class Category extends Model
 {
     use HasSlug;
 
-    protected $fillable = ['name', 'icon_name', 'is_pinned', 'slug'];
+    protected $fillable = [
+        'name',
+        'icon_name',
+        'is_pinned',
+        'slug',
+        'name_uk',
+        'name_ru',
+    ];
 
     /**
      * Get the options for generating the slug.
@@ -106,5 +114,12 @@ class Category extends Model
     public static function countPinned(): int
     {
         return self::where('is_pinned', true)->count();
+    }
+
+    public function getNameByLocale()
+    {
+        $name = new NameReturner($this);
+
+        return $name->getNameByLocale();
     }
 }

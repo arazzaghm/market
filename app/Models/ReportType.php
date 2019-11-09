@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Returners\NameReturner;
 use App\Traits\FormatModelTypeTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -32,14 +33,8 @@ class ReportType extends Model
 
     public function getNameByLocale()
     {
-        $name = $this->name;
+       $name = new NameReturner($this);
 
-        if (App::getLocale() == 'ru') {
-            $name = $this->name_ru;
-        } elseif (App::getLocale() == 'uk') {
-            $name = $this->name_uk;
-        }
-
-        return $name;
+       return $name->getNameByLocale();
     }
 }

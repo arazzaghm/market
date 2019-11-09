@@ -15,6 +15,8 @@ class CreateCategoryRequest extends BaseRequest
     {
         return [
             'name' => 'required',
+            'name_uk' => 'required',
+            'name_ru' => 'required',
             'icon_name' => 'required',
         ];
     }
