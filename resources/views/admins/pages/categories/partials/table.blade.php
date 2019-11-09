@@ -20,7 +20,7 @@
         <tr>
             <td>{{$category->id}}</td>
             <td>{{$category->name}}</td>
-            <td>{{$category->getFaIconName()}}</td>
+            <td><span class="fa {{$category->getFaIconName()}}"></span> {{$category->getFaIconName()}}</td>
             <td>
                 <a class="btn btn-warning"
                    href="{{route('admin.categories.edit', ['category' => $category])}}">

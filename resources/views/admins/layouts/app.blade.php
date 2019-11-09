@@ -120,6 +120,7 @@
 
 <!-- Demo Js -->
 <script src="{{asset('admins/js/demo.js')}}"></script>
+<script src="https://use.fontawesome.com/a96cf2e01d.js"></script>
 </body>
 
 </html>
