@@ -11,6 +11,12 @@ class PostService
 
     private $object;
 
+    /**
+     * Handles uploaded photo.
+     *
+     * @param Post $post
+     * @param $photo
+     */
     public function handleUploadedPhoto(Post $post, $photo)
     {
         $this->object = $post;

@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Returners\NameReturner;
 use App\Traits\FormatModelTypeTrait;
+use App\Traits\NameGetterTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\App;
 
 class ReportType extends Model
 {
-    use FormatModelTypeTrait;
+    use FormatModelTypeTrait, NameGetterTrait;
 
     public $timestamps = false;
 
@@ -29,12 +30,5 @@ class ReportType extends Model
     public function reports()
     {
         return $this->hasMany(Report::class);
-    }
-
-    public function getNameByLocale()
-    {
-       $name = new NameReturner($this);
-
-       return $name->getNameByLocale();
     }
 }

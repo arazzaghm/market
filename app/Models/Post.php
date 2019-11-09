@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
@@ -277,6 +278,12 @@ class Post extends Model implements HasMedia, HasReports
         return $formattedPrice->format();
     }
 
+    /**
+     * Registers media conversions.
+     *
+     * @param Media|null $media
+     * @throws InvalidManipulation
+     */
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('small')

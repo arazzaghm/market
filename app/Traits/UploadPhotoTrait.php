@@ -4,6 +4,12 @@ namespace App\Traits;
 
 trait UploadPhotoTrait
 {
+    /**
+     * Uploads the photo.
+     *
+     * @param $photo
+     * @param string $collection
+     */
     public function upload($photo, string $collection)
     {
         if ($this->object->hasMedia($collection) && isset($photo)) {

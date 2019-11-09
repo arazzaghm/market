@@ -11,6 +11,12 @@ class CompanyService
 
     private $object;
 
+    /**
+     * Handles uploaded photo.
+     *
+     * @param Company $company
+     * @param $photo
+     */
     public function handleUploadedPhoto(Company $company, $photo)
     {
         $this->object = $company;

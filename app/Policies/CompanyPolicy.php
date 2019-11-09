@@ -11,6 +11,13 @@ class CompanyPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * Checks if logo can be deleted.
+     *
+     * @param User $user
+     * @param Company $company
+     * @return Response
+     */
     public function deleteLogo(User $user, Company $company)
     {
         return $company->getFirstMedia('logo')

@@ -17,6 +17,11 @@ class PhoneNumberFormatter implements Formatter
         $this->phoneNumber = $phoneNumber;
     }
 
+    /**
+     * Formats phone number.
+     *
+     * @return mixed|string|string[]|null
+     */
     public function format()
     {
         $this->phoneNumber = preg_replace('/[^0-9]/', '', $this->phoneNumber);

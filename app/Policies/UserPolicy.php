@@ -37,6 +37,12 @@ class UserPolicy
             : Response::deny();
     }
 
+    /**
+     * Check is user can create company.
+     *
+     * @param User $user
+     * @return Response
+     */
     public function createCompany(User $user)
     {
         return !$user->hasCompany()

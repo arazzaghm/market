@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
 use phpDocumentor\Reflection\Types\Self_;
+use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
@@ -227,6 +228,13 @@ class User extends Authenticatable implements HasMedia, BannableContract, HasRep
         return $this->company()->exists();
     }
 
+
+    /**
+     * Registers media conversions.
+     *
+     * @param Media|null $media
+     * @throws InvalidManipulation
+     */
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('small')

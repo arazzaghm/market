@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Comment extends Model
 {
     use FormatCreatedAdDateTrait;
+
     protected $fillable = [
         'text',
         'anonymous',

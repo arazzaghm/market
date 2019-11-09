@@ -8,11 +8,20 @@ class NameReturner
 {
     private $object;
 
+    /**
+     * NameReturner constructor.
+     * @param $object
+     */
     public function __construct($object)
     {
         $this->object = $object;
     }
 
+    /**
+     * Returns name depending on locale.
+     *
+     * @return mixed
+     */
     public function getNameByLocale()
     {
         $name = $this->object->name;

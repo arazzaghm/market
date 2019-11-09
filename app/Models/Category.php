@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Formatters\IconNameFormatter;
 use App\Returners\NameReturner;
+use App\Traits\NameGetterTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\HasSlug;
@@ -11,7 +12,7 @@ use Spatie\Sluggable\SlugOptions;
 
 class Category extends Model
 {
-    use HasSlug;
+    use HasSlug, NameGetterTrait;
 
     protected $fillable = [
         'name',
@@ -114,12 +115,5 @@ class Category extends Model
     public static function countPinned(): int
     {
         return self::where('is_pinned', true)->count();
-    }
-
-    public function getNameByLocale()
-    {
-        $name = new NameReturner($this);
-
-        return $name->getNameByLocale();
     }
 }

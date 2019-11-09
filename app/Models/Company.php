@@ -9,6 +9,7 @@ use App\Traits\Reportable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
@@ -51,6 +52,12 @@ class Company extends Model implements HasMedia, HasReports
         return $phoneNumber->format();
     }
 
+    /**
+     * Registers media conversions.
+     *
+     * @param Media|null $media
+     * @throws InvalidManipulation
+     */
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('small')
@@ -59,6 +66,12 @@ class Company extends Model implements HasMedia, HasReports
             ->width(600);
     }
 
+    /**
+     * Gets company logo.
+     *
+     * @param string $size
+     * @return string
+     */
     public function getLogoUrl($size = 'small')
     {
         return $this->getFirstMedia('logo')
