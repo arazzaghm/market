@@ -1,5 +1,5 @@
-<div class="col-md-3 mb-2 col-sm-12" >
-    <h2>@lang('company.settings')</h2>
+<div class="col-md-4 mb-2 col-sm-12" >
+    <h4>@lang('company.settings')</h4>
     <ul class="list-group">
         <a href="{{route('my-company.index')}}"
            class="text-decoration-none">

@@ -4,7 +4,17 @@
     <div class="row">
         @include('pages.my-company.partials.sidebar')
         <div class="col">
-            <h2>Posts</h2>
+            <div class="row">
+                <div class="col-4">
+                    <h2>@lang('company.posts.posts')</h2>
+                </div>
+                <div class="col-0">
+                    <div class="btn btn-outline-success">
+                        <i class="fa fa-plus"></i>
+                        @lang('common.new')
+                    </div>
+                </div>
+            </div>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -27,7 +37,8 @@
                         <td>{{$post->formatCreatedAtDate()}}</td>
                         <td>{{$post->getFormattedPrice()}}</td>
                         <td>
-                            <a href="{{route('posts.show', ['post' => $post, 'category' => $post->category])}}" class="btn btn-sm btn-primary">
+                            <a href="{{route('posts.show', ['post' => $post, 'category' => $post->category])}}"
+                               class="btn btn-sm btn-primary">
                                 <i class="fa fa-eye"></i>
                                 <br>
                                 @lang('common.show')
@@ -37,7 +48,7 @@
                 </tbody>
                 @empty
                     <div class="alert alert-primary">
-                         @lang('sentence.company.noPosts')
+                        @lang('sentence.company.noPosts')
                         <a href="{{route('posts.create')}}"> {{strtolower(trans('common.here'))}}</a>
                     </div>
                 @endforelse
