@@ -81,7 +81,7 @@ class PostController extends Controller
 
         $post = $company->posts()->create($request->validated());
 
-        $this->postService->handlePostPhoto($post, $request->picture);
+        $this->postService->handleUploadedPhoto($post, $request->picture);
 
         \Mail::to($company->email)->send(
             new NewPostMail($post)

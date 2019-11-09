@@ -276,4 +276,12 @@ class Post extends Model implements HasMedia, HasReports
 
         return $formattedPrice->format();
     }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('small')
+            ->fit('crop', 300, 300);
+        $this->addMediaConversion('medium')
+            ->width(600);
+    }
 }
