@@ -12,4 +12,7 @@ return [
     'here' => 'here',
     'save' => 'Save',
     'close' => 'Close',
+    'actions' => 'Actions',
+    'category' => 'Category',
+    'send' => 'Send',
 ];

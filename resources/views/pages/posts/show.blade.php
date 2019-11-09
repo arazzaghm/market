@@ -8,24 +8,24 @@
                 <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Actions
+                        @lang('common.actions')
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @can('archive', $post)
                             <button class="dropdown-item" data-toggle="modal" data-target="#editPost">
                                 <i class="fa fa-edit"></i>
-                                Edit
+                                @lang('post.actions.edit')
                             </button>
                         @endcannot
                         <button class="dropdown-item" data-toggle="modal" data-target="#deletePost">
                             <i class="fa fa-trash"></i>
-                            Delete
+                            @lang('post.actions.delete')
                         </button>
                         <form action="{{route('posts.hide', ['post' => $post])}}" method="POST">
                             @csrf
                             <button class="dropdown-item">
                                 <i class="fa {{!$post->isHidden() ? 'fa-eye-slash' : 'fa-eye'}}"></i>
-                                {{$post->isHidden() ? 'Make visible' : 'Hide'}}
+                                {{$post->isHidden() ? trans('post.actions.makeVisible') : trans('post.actions.hide')}}
                             </button>
                         </form>
 
@@ -35,7 +35,7 @@
                                     @csrf
                                     <button class="dropdown-item">
                                         <i class="fa fa-photo"></i>
-                                        Delete picture
+                                        @lang('post.actions.deletePicture')
                                     </button>
                                 </form>
                             @endif
@@ -43,7 +43,7 @@
                         @can('archive', $post)
                             <button class="dropdown-item" data-toggle="modal" data-target="#archivePost">
                                 <i class="fa fa-archive"></i>
-                                Archive
+                                @lang('post.actions.archive')
                             </button>
                         @endcan
                     </div>
@@ -59,8 +59,8 @@
                         <div class="col-md-6">
                             <h3 class="card-title">{{$post->title}}</h3>
                             <h4>{{$post->getFormattedPrice()}}</h4>
-                            <h4>Category: <span
-                                    class="fa {{$post->category->getFaIconName()}}"></span> {{$post->category->name}}
+                            <h4>@lang('common.category'): <span
+                                    class="fa {{$post->category->getFaIconName()}}"></span> {{$post->category->getNameByLocale()}}
                             </h4>
                             <p class="card-text">{{$post->description}}</p>
                             <p><i class="fa fa-eye"></i> {{$post->viewed_times}}</p>
@@ -96,13 +96,13 @@
             <!-- /.card -->
             <div class="card card-outline-secondary my-4">
                 <div class="card-header">
-                    Product Reviews
+                   @lang('post.comments.comments')
                 </div>
                 <div class="card-body">
                     @forelse($comments as $comment)
-                        <small class="text-muted">Posted by @if($comment->anonymous) Anonymous @else <a
+                        <small class="text-muted"> @lang('post.comments.postedBy') @if($comment->anonymous) @lang('post.comments.anonymous') @else <a
                                 href="{{route('users.show', $comment->user()->first())}}">{{$comment->user()->first()->name}} @endif</a>
-                            on {{$comment->formatCreatedAtDate()}}</small>
+                            {{$comment->formatCreatedAtDate()}}</small>
                         <p>{{$comment->text}}</p>
                     @empty
                         <p>Leave first review!</p>
@@ -115,8 +115,8 @@
                                 @csrf
                             @endauth
                             <div class="form-group">
-                                <label for="comment">Comment</label>
-                                <textarea class="form-control" id="comment" placeholder="Your comment" @auth name="text"
+                                <label for="comment">@lang('post.comments.type.yourComment')</label>
+                                <textarea class="form-control" id="comment" placeholder="@lang('post.comments.type.yourComment')" @auth name="text"
                                           @endauth
                                           required @guest {{'disabled'}} @endguest></textarea>
                             </div>
@@ -124,11 +124,11 @@
                                 <input type="checkbox" class="custom-control-input" id="anonymous"
                                        @auth name="anonymous" @endauth>
                                 @auth
-                                    <label class="custom-control-label" for="anonymous">Anonymous comment</label>
+                                    <label class="custom-control-label" for="anonymous">@lang('post.comments.type.anonymous')</label>
                                 @endauth
                             </div>
-                            <button type="submit" class="btn btn-success" @guest {{'disabled'}} @endguest>
-                                Leave a Review
+                            <button type="submit" class="btn btn-success mt-2" @guest {{'disabled'}} @endguest>
+                                @lang('common.send')
                             </button>
                         </form>
                     @else
