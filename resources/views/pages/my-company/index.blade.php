@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         @include('pages.my-company.partials.sidebar')
-        <div class="col-md-9">
+        <div class="col-md">
             <h1>@lang('sentence.hello')!</h1>
             <h3>@lang('sentence.company.mainPage')!</h3>
             <h4>@lang('sentence.company.checkStats').</h4>

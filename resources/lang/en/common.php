@@ -15,4 +15,5 @@ return [
     'actions' => 'Actions',
     'category' => 'Category',
     'send' => 'Send',
+    'posts' => 'Posts',
 ];

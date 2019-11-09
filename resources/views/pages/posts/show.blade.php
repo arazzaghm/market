@@ -105,7 +105,7 @@
                             {{$comment->formatCreatedAtDate()}}</small>
                         <p>{{$comment->text}}</p>
                     @empty
-                        <p>Leave first review!</p>
+                        <p>@lang('sentence.firstComment')</p>
                     @endforelse
                     {{$comments->links()}}
                     <hr>

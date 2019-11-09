@@ -283,5 +283,7 @@ class Post extends Model implements HasMedia, HasReports
             ->fit('crop', 300, 300);
         $this->addMediaConversion('medium')
             ->width(600);
+        $this->addMediaConversion('card')
+            ->fit('crop', 500, 325);
     }
 }

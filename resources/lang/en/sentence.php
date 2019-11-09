@@ -10,6 +10,8 @@ return [
     ],
     'emptyPassword' => 'Change the information below only if you want to change your password! If not - leave it empty.',
 
+    'firstComment' => 'Leave first comment!',
+
     'company' => [
         'noCompany' => 'Sorry, you do`t have company yet',
         'mainPage' => 'This is the main page of your company control panel',
