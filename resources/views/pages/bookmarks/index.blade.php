@@ -6,7 +6,9 @@
         @include('pages.bookmarks.partials.bookmark_horizontal_card')
     @empty
         <div class="alert alert-primary" role="alert">
-            Sorry, you don`t have bookmarks now!
+            <div class="d-flex justify-content-center">
+                @lang('sentence.bookmark.noBookmarks')
+            </div>
         </div>
     @endforelse
     {{$bookmarks->links()}}

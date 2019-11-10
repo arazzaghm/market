@@ -17,5 +17,9 @@ return [
         'mainPage' => 'This is the main page of your company control panel',
         'checkStats' => 'You can check the statistic of your company here',
         'noPosts' => ' Your company has no posts yet. You can create the first one',
+    ],
+
+    'bookmark' => [
+        'noBookmarks' => 'Sorry, you don`t have bookmarks now!'
     ]
 ];
