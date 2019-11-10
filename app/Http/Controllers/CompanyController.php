@@ -15,6 +15,9 @@ class CompanyController extends Controller
 {
     private $companyService;
 
+    /**
+     * CompanyController constructor.
+     */
     public function __construct()
     {
         $this->companyService = new CompanyService();
