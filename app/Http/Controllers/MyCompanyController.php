@@ -5,18 +5,29 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Services\CompanyService;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class MyCompanyController extends Controller
 {
     private $companyService;
 
+    /**
+     * MyCompanyController constructor.
+     */
     public function __construct()
     {
         $this->companyService = new CompanyService();
     }
 
+    /**
+     * Shows the index page.
+     *
+     * @return Factory|View
+     */
     public function index()
     {
         $company = Auth::user()->company;
@@ -34,6 +45,11 @@ class MyCompanyController extends Controller
         ));
     }
 
+    /**
+     * Shows the company.
+     *
+     * @return Factory|View
+     */
     public function show()
     {
         $company = Auth::user()->company;
@@ -41,14 +57,13 @@ class MyCompanyController extends Controller
         return view('pages.my-company.show', compact('company'));
     }
 
+    /**
+     * @param UpdateCompanyRequest $request
+     * @return RedirectResponse
+     */
     public function update(UpdateCompanyRequest $request)
     {
-        $data = $request->validated();
-        unset($data['logo']);
-
-        Auth::user()->company->update($data);
-
-        $this->companyService->handleUploadedPhoto(Auth::user()->company, $request->logo);
+        $this->companyService->updateCompany(Auth::user()->company, $request);
 
         return back();
     }

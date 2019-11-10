@@ -11,6 +11,9 @@ class AvatarController extends Controller
 {
     private $userService;
 
+    /**
+     * AvatarController constructor.
+     */
     public function __construct()
     {
         $this->userService = new UserService();

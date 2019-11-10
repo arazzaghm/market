@@ -26,7 +26,7 @@ class UserActivity
     {
         if (auth()->check()) {
             if (Cache::has('user-online-' . auth()->id())) {
-               Cache::forget('user-online-' . auth()->id());
+                Cache::forget('user-online-' . auth()->id());
             }
             Cache::put('user-online-' . auth()->id(), true, Carbon::now()->addMinutes(4));
         }

@@ -2,16 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class SettingsController extends Controller
 {
+    /**
+     * Shows index page.
+     *
+     * @return Factory|View
+     */
     public function index()
     {
         return view('pages.settings.index');
     }
 
+    /**
+     * Shows statistics page.
+     *
+     * @return Factory|View
+     */
     public function statistics()
     {
 
@@ -23,10 +35,5 @@ class SettingsController extends Controller
             'totalReports',
             'totalQuestions'
         ));
-    }
-
-    public function support()
-    {
-
     }
 }

@@ -9,8 +9,6 @@ class PostService
 {
     use UploadPhotoTrait;
 
-    private $object;
-
     /**
      * Handles uploaded photo.
      *

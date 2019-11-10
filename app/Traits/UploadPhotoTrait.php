@@ -4,6 +4,8 @@ namespace App\Traits;
 
 trait UploadPhotoTrait
 {
+    private $object;
+
     /**
      * Uploads the photo.
      *

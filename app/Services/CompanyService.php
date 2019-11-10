@@ -11,8 +11,6 @@ class CompanyService
 {
     use UploadPhotoTrait;
 
-    private $object;
-
     /**
      * Handles uploaded photo.
      *

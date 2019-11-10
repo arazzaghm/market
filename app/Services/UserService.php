@@ -11,8 +11,6 @@ class UserService
 {
     use UploadPhotoTrait;
 
-    private $object;
-
     /**
      * Updates user data.
      *
