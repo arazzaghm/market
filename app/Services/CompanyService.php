@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Models\Company;
 use App\Traits\UploadPhotoTrait;
-use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CompanyService
