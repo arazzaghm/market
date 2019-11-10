@@ -3,11 +3,16 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Traits\UploadPhotoTrait;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
+    use UploadPhotoTrait;
+
+    private $object;
+
     /**
      * Updates user data.
      *
@@ -28,5 +33,18 @@ class UserService
         } else {
             $user->update($params);
         }
+    }
+
+    /**
+     * Handles uploaded photo.
+     *
+     * @param User $user
+     * @param $photo
+     */
+    public function handleUploadedPhoto(User $user, $photo)
+    {
+        $this->object = $user;
+
+        $this->upload($photo, 'avatar');
     }
 }

@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\Avatar\StoreAvatarRequest;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class AvatarController extends Controller
 {
+    private $userService;
+
+    public function __construct()
+    {
+        $this->userService = new UserService();
+    }
+
     public function store(StoreAvatarRequest $request, User $user)
     {
-        if ($user->hasMedia('avatar')) {
-            $user->getFirstMedia('avatar')->delete();
-        }
-        $user->addMedia($request->avatar)->toMediaCollection('avatar');
+        $this->userService->handleUploadedPhoto($user, $request->avatar);
 
         return back();
     }
