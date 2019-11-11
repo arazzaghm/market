@@ -11,6 +11,20 @@ class CompanyPolicy
 {
     use HandlesAuthorization;
 
+
+    /**
+     * Check is user can create company.
+     *
+     * @param User $user
+     * @param Company $company
+     * @return Response
+     */
+    public function create(User $user, Company $company)
+    {
+        return !$user->hasCompany()
+            ? Response::allow()
+            : Response::deny('You can not create new company!');
+    }
     /**
      * Checks if logo can be deleted.
      *

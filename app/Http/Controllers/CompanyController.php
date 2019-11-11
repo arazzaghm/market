@@ -31,7 +31,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        $this->authorize('createCompany', Auth::user());
+        $this->authorize('create', new Company());
 
         return view('pages.companies.create');
     }

@@ -36,17 +36,4 @@ class UserPolicy
             ? Response::allow()
             : Response::deny();
     }
-
-    /**
-     * Check is user can create company.
-     *
-     * @param User $user
-     * @return Response
-     */
-    public function createCompany(User $user)
-    {
-        return !$user->hasCompany()
-            ? Response::allow()
-            : Response::deny('You can not create new company!');
-    }
 }
