@@ -13,6 +13,8 @@ return [
     'firstComment' => 'Leave first comment!',
 
     'company' => [
+        'create' => 'Create new company',
+        'createDescription' => 'You can create new company to place your offers on our portal',
         'noCompany' => 'Sorry, you do`t have company yet',
         'mainPage' => 'This is the main page of your company control panel',
         'checkStats' => 'You can check the statistic of your company here',

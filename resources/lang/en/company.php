@@ -9,6 +9,8 @@ return [
         'posts' => 'Company posts',
         'total' => 'Total posts',
         'today' => 'Today posts',
+        'postedBy' => 'Posted by',
+        'empty' => 'This company has no posts yet',
     ],
 
     'sidebar' => [
@@ -26,5 +28,11 @@ return [
         'number' => 'Phone number',
         'logo' => 'Logo',
         'description' => 'Description',
+    ],
+
+    'owner' => 'Owner',
+
+    'credentials' => [
+        'logOrRegister' => 'Log in or register to view the credentials',
     ],
 ];
