@@ -23,7 +23,7 @@ class PostPolicy
     {
         return $user->hasCompany()
             ? Response::allow()
-            : Response::deny('You can not create new post.');
+            : Response::deny(trans('response.company.deny.create'));
     }
 
     /**
@@ -37,7 +37,7 @@ class PostPolicy
     {
         return $post->authIsOwner()
             ? Response::allow()
-            : Response::deny('You do not own this post.');
+            : Response::deny(trans('response.post.deny.own'));
     }
 
     /**
@@ -51,7 +51,7 @@ class PostPolicy
     {
         return !Auth::check() && $post->isViewable() || Auth::check() && $user->isAdmin() || $post->isViewable() || $user->company->id === $post->company_id
             ? Response::allow()
-            : Response::deny('You can not see this post.');
+            : Response::deny(trans('response.post.deny.see'));
     }
 
     /**
@@ -65,6 +65,6 @@ class PostPolicy
     {
         return $user->company->id === $post->company_id && !$post->isArchived()
             ? Response::allow()
-            : Response::deny('You do can not archive this post.');
+            : Response::deny(trans('response.post.deny.archive'));
     }
 }

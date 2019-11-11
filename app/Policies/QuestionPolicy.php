@@ -22,7 +22,7 @@ class QuestionPolicy
     {
         return $question->user_id == $user->id
             ? Response::allow()
-            : Response::deny('You can`t view this page.', 404);
+            : Response::deny(trans('response.page.deny.view'));
     }
 
     /**

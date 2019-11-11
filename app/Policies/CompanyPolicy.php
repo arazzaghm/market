@@ -23,7 +23,7 @@ class CompanyPolicy
     {
         return !$user->hasCompany()
             ? Response::allow()
-            : Response::deny('You can not create new company!');
+            : Response::deny(trans('response.company.deny.create'));
     }
     /**
      * Checks if logo can be deleted.

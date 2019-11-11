@@ -20,7 +20,7 @@ class CategoryPolicy
     {
         return Category::countPinned() < 5
             ? Response::allow()
-            : Response::deny('You can not pin this category!');
+            : Response::deny(trans('response.category.deny.pin'));
     }
 
     /**
@@ -33,6 +33,6 @@ class CategoryPolicy
     {
         return $category->isPinned()
             ? Response::allow()
-            : Response::deny();
+            : Response::deny(trans('response.category.deny.unpin'));
     }
 }
