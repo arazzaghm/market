@@ -5,6 +5,7 @@ namespace App\Traits;
 
 
 use App\Returners\NameReturner;
+use Illuminate\Support\Facades\App;
 
 trait NameGetterTrait
 {
@@ -15,8 +16,14 @@ trait NameGetterTrait
      */
     public function getNameByLocale()
     {
-        $name = new NameReturner($this);
+        $name = $this->name;
 
-        return $name->getNameByLocale();
+        if (App::getLocale() == 'ru') {
+            $name = $this->name_ru;
+        } elseif (App::getLocale() == 'uk') {
+            $name = $this->name_uk;
+        }
+
+        return $name;
     }
 }
