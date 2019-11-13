@@ -36,4 +36,9 @@ class UserPolicy
             ? Response::allow()
             : Response::deny();
     }
+
+    public function clearCart(User $user)
+    {
+        return !empty(request()->session()->get('posts'));
+    }
 }

@@ -143,6 +143,14 @@ Route::group(['middleware' => ['auth', 'hasCompany'], 'as' => 'my-company.'], fu
     Route::get('/my-company/posts', 'MyCompanyPostController@index')->name('posts.index');
 });
 
+Route::group(['middleware' => ['auth'], 'as' => 'cart.'], function () {
+    Route::get('/cart', 'CartController@show')->name('show');
+    Route::get('/cart/add/{post}', 'CartController@add')->name('add');
+    Route::delete('/cart/delete/{post}', 'CartController@delete')->name('delete');
+    Route::delete('/cart/clear', 'CartController@clear')->name('clear');
+});
+
+
 Route::get('/companies/{company}', 'CompanyController@show')->name('companies.show');
 Route::get('/posts/{category?}', 'PostController@index')->name('posts.index');
 Route::get('lang/{locale}', 'LanguageController@set')->name('language.set');

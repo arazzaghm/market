@@ -242,4 +242,9 @@ class User extends Authenticatable implements HasMedia, BannableContract, HasRep
         $this->addMediaConversion('medium')
             ->width(600);
     }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
 }

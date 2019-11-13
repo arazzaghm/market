@@ -79,6 +79,14 @@
                                         @include('partials.buttons.report-button')
                                     </div>
                                 </div>
+                                <div class="row pl-2">
+
+                                    <a href="{{route('cart.add', ['post'=>$post])}}" class="btn btn-success">
+                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                        Add to cart
+                                    </a>
+                                </div>
+
                             @endauth
                         </div>
                         <div class="col-md-6">
@@ -96,13 +104,15 @@
             <!-- /.card -->
             <div class="card card-outline-secondary my-4">
                 <div class="card-header">
-                   @lang('post.comments.comments')
+                    @lang('post.comments.comments')
                 </div>
                 <div class="card-body">
                     @forelse($comments as $comment)
-                        <small class="text-muted"> @lang('post.comments.postedBy') @if($comment->anonymous) @lang('post.comments.anonymous') @else <a
-                                href="{{route('users.show', $comment->user()->first())}}">{{$comment->user()->first()->name}} @endif</a>
-                            {{$comment->formatCreatedAtDate()}}</small>
+                        <small
+                            class="text-muted"> @lang('post.comments.postedBy') @if($comment->anonymous) @lang('post.comments.anonymous') @else
+                                <a
+                                    href="{{route('users.show', $comment->user()->first())}}">{{$comment->user()->first()->name}} @endif</a>
+                                {{$comment->formatCreatedAtDate()}}</small>
                         <p>{{$comment->text}}</p>
                     @empty
                         <p>@lang('sentence.firstComment')</p>
@@ -116,7 +126,8 @@
                             @endauth
                             <div class="form-group">
                                 <label for="comment">@lang('post.comments.type.yourComment')</label>
-                                <textarea class="form-control" id="comment" placeholder="@lang('post.comments.type.yourComment')" @auth name="text"
+                                <textarea class="form-control" id="comment"
+                                          placeholder="@lang('post.comments.type.yourComment')" @auth name="text"
                                           @endauth
                                           required @guest {{'disabled'}} @endguest></textarea>
                             </div>
@@ -124,7 +135,8 @@
                                 <input type="checkbox" class="custom-control-input" id="anonymous"
                                        @auth name="anonymous" @endauth>
                                 @auth
-                                    <label class="custom-control-label" for="anonymous">@lang('post.comments.type.anonymous')</label>
+                                    <label class="custom-control-label"
+                                           for="anonymous">@lang('post.comments.type.anonymous')</label>
                                 @endauth
                             </div>
                             <button type="submit" class="btn btn-success mt-2" @guest {{'disabled'}} @endguest>

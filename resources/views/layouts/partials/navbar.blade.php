@@ -84,6 +84,10 @@
                                 <i class="fa fa-bookmark"></i> @lang('navbar.myBookmarks')
                             </a>
 
+                            <a href="{{route('cart.show')}}" class="dropdown-item">
+                                <i class="fa fa-shopping-cart"></i> My cart
+                            </a>
+
                             <a href="{{route('settings.index')}}" class="dropdown-item">
                                 <i class="fa fa-cog"></i> @lang('navbar.mySettings')
                             </a>
